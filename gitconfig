@@ -1,0 +1,37 @@
+[user]
+	name = Benjamin Schmidt
+	email = benschmidt@live.de
+	username = schmidt
+[core]
+	editor = /local_data/.programs/nvim.appimage
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+	excludesfile = ~/.gitignore
+[web]
+	browser = firefox
+[push]
+	default = matching
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow bold
+	local = green bold
+	remote = cyan bold
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[gitlab]
+    user = schmidt
+    token = HjFkxTX23fhbMU-UB7yx
+[github]
+    user = benatouba

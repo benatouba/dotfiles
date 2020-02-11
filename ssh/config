@@ -1,0 +1,16 @@
+Host tu
+HostName hpc.klima.tu-berlin.de
+User schmidt
+ForwardX11 yes
+LocalForward 8086 localhost:8086
+
+Host fs2
+HostName 130.149.72.63
+User schmidt
+ForwardX11 yes
+
+Host tuebingen
+HostName 134.2.5.40
+User esd_guest
+Port 6307
+ForwardX11 yes
