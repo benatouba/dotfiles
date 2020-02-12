@@ -102,9 +102,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'jeetsukumaran/vim-indentwise'
 " Better language packs
 " Plug 'sheerun/vim-polyglot'
-" Ack code search (requires ack installed in the system)
-Plug 'mileszs/ack.vim'
-" TODO is there a way to prevent the progress which hides the editor?
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
 " TODO is there a better option for neovim?
