@@ -3,6 +3,9 @@ then
     alias vim="~/.programs/nvim.appimage"
     alias nvim="~/.programs/nvim.appimage"
     alias up="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean && sudo apt autoclean"
+    alias upconda="conda update -n base conda"
+    alias upvim="vim +PlugUpgrade +PlugUpdate +CocUpdate"
+    alias upall="up && upconda && upvim"
     alias rambox="/home/ben/.programs/rambox/rambox-0.7.2.Appimage"
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 fi
