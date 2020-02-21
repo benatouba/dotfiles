@@ -32,28 +32,32 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Aesthetics - Main
-Plug 'dracula/vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'
 " Plug 'junegunn/limelight.vim'
 Plug 'junegunn/seoul256.vim'
 " Plug 'junegunn/vim-journal'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'nightsense/forgotten'
 Plug 'zaki/zazen'
+Plug 'chriskempson/base16-vim'
 
-" Aethetics - Additional
+" Aethetics - themes
+Plug 'mhartington/oceanic-next'
+Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 Plug 'rhysd/vim-color-spring-night'
-Plug 'chriskempson/base16-vim'
 Plug 'tomasr/molokai'
 Plug 'sjl/badwolf'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'neg-serg/neg'
 Plug 'jacoborus/tender.vim'
 Plug 'lifepillar/vim-solarized8'
+Plug 'nightsense/forgotten'
+Plug 'dracula/vim'
 
+" Close buffers but keep splits
+Plug 'moll/vim-bbye'
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
 " Code commenter
@@ -115,6 +119,8 @@ Plug 'valloric/MatchTagAlways', {'for': 'html'}
 Plug 'mattn/emmet-vim', {'for': 'html'}
 " Git integration
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb' " hub extension for fugitive
+Plug 'sodapopcan/vim-twiggy'
 " Git/mercurial/others diff icons on the side of the file lines
 Plug 'mhinz/vim-signify'
 " Yank history navigation
@@ -125,7 +131,7 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'myusuf3/numbers.vim'
 " For R, RScript, Rscript, r, rscript
 Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
-Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
+" Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
 " Latex, latex, Latex
 " Plug 'donRaphaco/neotex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -165,7 +171,14 @@ source ~/.config/nvim/_machine_specific.vim
 " ============================================================================
 " Vim settings and mappings
 
+colorscheme OceanicNext
+let g:airline_theme='oceanicnext'
+
 let mapleader=","                           " set Mapleader
+
+if has('mouse')
+    set mouse=a
+endif
 
 set encoding=utf-8                          " standard encoding
 
@@ -181,12 +194,17 @@ set tabstop=4                               " number of spaces of tab
 set softtabstop=4                           " number of spaces of tab in insert mode
 set shiftwidth=4                            " number of spaces of autoindent
 set expandtab                               " expand tabs into spaces
+set backspace=indent,eol,start              " make backspace behave in a sane manner
 set splitright                              " open split window on right side
 set splitbelow                              " open split window on right side
 
 set nu                                      " show line numbers
-" set ignorecase                              " ignore case of letter in search
-" set smartcase                               " override ignorecase if capital letter is typed
+set ignorecase                              " ignore case of letter in search
+set smartcase                               " override ignorecase if capital letter is typed
+set hlsearch                                " highlight search results
+set incsearch                               " set incremental search, like modern browsers
+set noerrorbells                            " turn off error sound notification
+set visualbell                              " visual error notification
 
 set fillchars+=vert:\                       " remove vertical lines on window division
 
@@ -217,6 +235,7 @@ vnoremap <leader>P "+P
 
 " edit vimrc/zshrc and load vimrc bindings
 nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>eg :e ~/.gitconfig<CR>
 nnoremap <leader>eb :e ~/.bashrc<CR>
 
 " ============================================================================
@@ -290,17 +309,25 @@ map <F2> :TaskList<CR>
 " Fzf ------------------------------
 
 " file finder mapping
-" nmap ,e :Files<CR>
+nmap ,e :Files<CR>
 " tags (symbols) in current file finder mapping
-" nmap ,g :BTag<CR>
+nmap ,g :BTag<CR>
 " tags (symbols) in all files finder mapping
-" nmap ,G :Tag<CR>
+nmap ,G :Tag<CR>
 " general code finder in current file mapping
-" nmap ,f :BLines<CR>
+nmap ,f :BLines<CR>
 " general code finder in all files mapping
 " nmap ,F :Lines<CR>
 " commands finder mapping
-" nmap ,c :Commands<CR>
+nmap ,c :Commands<CR>
+
+augroup fzfbindings
+  autocmd! fzfbindings
+  autocmd FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler | unmap! <ESC>
+  autocmd FileType fzf map <buffer> <silent> <ESC> <ESC>:bd!<CR>
+augroup end
+
 " to be able to call CtrlP with default search text
 "function! CtrlPWithSearchText(search_text, ctrlp_command_end)
 "execute ':CtrlP' . a:ctrlp_command_end
@@ -344,13 +371,16 @@ map <F2> :TaskList<CR>
 
 " let g:jedi#auto_vim_configuration = 0           " no auto vim configuration
 
-" Ack.vim ------------------------------
+" fzf.vim ------------------------------
 
-" mappings
-" search
-nmap ,s :Ack
-" search word
-nmap ,sw :Ack <cword><CR>
+
+let g:fzf_layout = {'down': '40%'}
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+if has('nvim') && !exists('g:fzf_layout')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
 
 " Signify ------------------------------
 
@@ -383,7 +413,6 @@ let g:yankring_history_dir = '~/.config/nvim/'
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
-" let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -432,6 +461,14 @@ let g:NERDTrimTrailingWhitespace = 1            " Enable trimming of trailing wh
 let g:vim_isort_python_version = 'python3'
 let g:vim_isort_map = '<C-i>'
 
+"=====================================================
+"" NVim-R, Nvim-R, nvim-r, nvimr, R, r
+" Start R
+nmap <leader>rs <Plug>RStart
+imap <leader>rs <Plug>RStart
+vmap <leader>rs <Plug>RStart
+map <leader>rxx <Plug>RSendLine
+map <leader>rxb <Plug>RSendAboveLines
 "=====================================================
 "" DevIcon Settings
 
@@ -488,6 +525,16 @@ let g:DevIconsEnableFolderExtensionPatternMatching = 0
 "=====================================================
 
 " let g:tex_flavor = 'latex'
+let g:vimtex_compiler_progname = 'nvr'
+call coc#config('list.source.bibtex', {
+  \  'files': [
+  \    '~/documents/bibtex/library.bib'
+  \  ]
+  \})
+call coc#config('list.source.bibtex.citation', {
+    \ 'before': '\cite{',
+	\ 'after': '}'
+    \ })
 
 "=====================================================
 "" Snippets, neosnippet
@@ -549,13 +596,16 @@ function! ColorBadwolf()
     colorscheme badwolf
 endfunction
 
-function! ColorSolarized()
+function! ColorBadwolf()
     let g:airline_theme='badwolf'
     colorscheme badwolf
 endfunction
 
-colorscheme solarized8_low
-let g:airline_theme='solarized'
+function! ColorOceanicNext()
+    let g:airline_theme='oceanicnext'
+    colorscheme OceanicNext
+endfunction
+
 " switch aesthetics
 " nmap <leader>g :Goyo<CR>
 nmap <leader>ee :Colors<CR>
@@ -565,8 +615,10 @@ nmap <leader>e2 :call ColorSeoul256()<CR>
 nmap <leader>e3 :call ColorTender()<CR>
 nmap <leader>e4 :call ColorZazen()<CR>
 nmap <leader>e5 :call ColorBadwolf()<CR>
-nmap <leader>r :w<CR> :so ~/.config/nvim/init.vim<CR>
-nmap <leader>t :call TrimWhitespace()<CR>
+nmap <leader>e6 :call ColorOceanicNext()<CR>
+nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR>
+nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
+nmap <leader>tw :call TrimWhitespace()<CR>
 
 
 "=====================================================
@@ -580,9 +632,50 @@ nmap pxf <Plug>(neoterm-repl-send-file)
 xmap px <Plug>(neoterm-repl-send)
 
 "=====================================================
+""
+" vim-fugitive
+nmap <silent> <leader>gs :Gstatus<cr>
+nmap <leader>ge :Gedit<cr>
+nmap <leader>gc :Gcommit %<cr>
+nmap <leader>gp :Gpush<cr>
+nmap <leader>gP :Gpull<cr>
+nmap <leader>ghb :Gbrowse<cr>
+nmap <silent><leader>gr :Gread<cr>
+nmap <silent><leader>gb :Gblame<cr>
+" coc-git
+nmap <space>gj <Plug>(coc-git-prevchunk)
+nmap <space>gk <Plug>(coc-git-nextchunk)
+nmap <space>gi <Plug>(coc-git-chunkinfo)
+nmap <space>gu :CocCommand git.chunkUndo<cr>
+
+
+"=====================================================
 "" Coc, coc
 
-let g:coc_global_extensions = ['coc-texlab', 'coc-pairs', 'coc-highlight', 'coc-dictionary', 'coc-eslint', 'coc-r-lsp', 'coc-bibtex', 'coc-vimtex', 'coc-python', 'coc-vimlsp', 'coc-snippets', 'coc-emmet', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-gitignore', 'coc-vetur']
+let g:coc_global_extensions = [
+            \ 'coc-css',
+            \ 'coc-dictionary',
+            \ 'coc-emmet',
+            \ 'coc-eslint',
+            \ 'coc-explorer',
+            \ 'coc-git',
+            \ 'coc-gitignore',
+            \ 'coc-highlight',
+            \ 'coc-html',
+            \ 'coc-json',
+            \ 'coc-lists',
+            \ 'coc-pairs', 
+            \ 'coc-prettier',
+            \ 'coc-python',
+            \ 'coc-r-lsp',
+            \ 'coc-snippets',
+            \ 'coc-texlab', 
+            \ 'coc-tsserver',
+            \ 'coc-vetur',
+            \ 'coc-vimlsp',
+            \ 'coc-vimtex',
+            \ 'coc-yank'
+            \ ]
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -640,9 +733,9 @@ xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <space>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <space>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of
 " languageserver.
@@ -674,7 +767,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
@@ -723,10 +816,6 @@ let g:coc_snippet_next = '<tab>'
 """ VEONIM """"""""""""""""""""""""""""""""""""""""""
 if exists('veonim')
 
-" built-in plugin manager
-Plug 'sheerun/vim-polyglot'
-Plug 'tpope/vim-surround'
-
 " extensions for web dev
 let g:vscode_extensions = [
   \'vscode.typescript-language-features',
@@ -772,8 +861,3 @@ nno <silent> <c-n> :Veonim next-problem<cr>
 nno <silent> <c-p> :Veonim prev-problem<cr>
 
 endif
-
-call coc#config('list.source.bibtex.citation', {
-    \ 'before': '\cite{',
-	\ 'after': '}'
-    \ })
