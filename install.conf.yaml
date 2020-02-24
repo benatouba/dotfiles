@@ -12,5 +12,13 @@
     ~/.zshrc: zshrc
     ~/.Xresources: Xresources
     ~/.config/nvim/init.vim: init.vim
-
-
+    ~/.git_template/hooks/: 
+        glob: true
+        path: git_template/hooks/*
+        create: true
+        force: true
+    ~/.vim/sessions: 
+        glob: true
+        path: vim/sessions/*
+        create: true
+        force: true

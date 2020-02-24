@@ -66,26 +66,19 @@ Plug 'arielrossanigo/dir-configs-override.vim'
 Plug 'scrooloose/nerdcommenter'
 " easier terminal Commands
 Plug 'kassio/neoterm'
-" Better file browser
-" Plug 'scrooloose/nerdtree'
 " Class/module browser
 Plug 'majutsushi/tagbar'
-" TODO known problems:
-" * current block not refreshing
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
 " Code and files fuzzy finder
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Extension to ctrlp, for fuzzy command finder
-" Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" Exuberatn CTags
-" Plug '
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
 " Async autocompletion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/echodoc.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocompletion using LSP
 " Completion from other opened files
@@ -96,10 +89,6 @@ Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'davidhalter/jedi-vim'
 " Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/django.vim'
-" Automatically close parenthesis, etc
-" Plug 'Townk/vim-autoclose'
-" Surround
-Plug 'tpope/vim-surround'
 " Indent text object
 Plug 'michaeljsmith/vim-indent-object'
 " Indentation based movements
@@ -108,11 +97,6 @@ Plug 'jeetsukumaran/vim-indentwise'
 Plug 'sheerun/vim-polyglot'
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
-" TODO is there a better option for neovim?
-" Window chooser
-" Plug 't9md/vim-choosewin'
-" Automatically sort python imports
-" Plug 'fisadev/vim-isort'
 " Highlight matching html tags
 Plug 'valloric/MatchTagAlways', {'for': 'html'}
 " Generate html in a simple way
@@ -121,12 +105,14 @@ Plug 'mattn/emmet-vim', {'for': 'html'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'sodapopcan/vim-twiggy'
+" Surround
+Plug 'tpope/vim-surround'
+" Session
+Plug 'tpope/vim-obsession'
 " Git/mercurial/others diff icons on the side of the file lines
 Plug 'mhinz/vim-signify'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
-" Linters
-" Plug 'neomake/neomake'
 " Relative numbering of lines (0 is the current line)
 Plug 'myusuf3/numbers.vim'
 " For R, RScript, Rscript, r, rscript
@@ -307,17 +293,17 @@ map <F2> :TaskList<CR>
 " Fzf ------------------------------
 
 " file finder mapping
-nmap ,e :Files<CR>
+nmap <leader>ff :Files<CR>
 " tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
+" nmap <leader>fT :BTag<CR>
 " tags (symbols) in all files finder mapping
-nmap ,G :Tag<CR>
+nmap <leader>ft :Tag<CR>
 " general code finder in current file mapping
-nmap ,f :BLines<CR>
+nmap <leader>fL :BLines<CR>
 " general code finder in all files mapping
-" nmap ,F :Lines<CR>
+nmap <leader>fl :Lines<CR>
 " commands finder mapping
-nmap ,c :Commands<CR>
+nmap <leader>fc :Commands<CR>
 
 augroup fzfbindings
   autocmd! fzfbindings
@@ -327,18 +313,18 @@ augroup fzfbindings
 augroup end
 
 " to be able to call CtrlP with default search text
-"function! CtrlPWithSearchText(search_text, ctrlp_command_end)
-"execute ':CtrlP' . a:ctrlp_command_end
-"call feedkeys(a:search_text)
-"endfunction
+function! CtrlPWithSearchText(search_text, ctrlp_command_end)
+execute ':CtrlP' . a:ctrlp_command_end
+call feedkeys(a:search_text)
+endfunction
 " same as previous mappings, but calling with current word as default text
-"nmap ,wg :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-"nmap ,wG :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-"nmap ,wf :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-"nmap ,we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-"nmap ,pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-"nmap ,wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-"nmap ,wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
+nmap <leader>wT :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
+nmap <leader>wt :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
+nmap <leader>wl :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+nmap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+nmap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+nmap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
+nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 
 
 " Deoplete -----------------------------
@@ -786,19 +772,21 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 Org   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{ObsessionStatus()}%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>ld  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <space>le  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>lc  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>lo  :<C-u>CocList outline<cr>
+" Search sessions
+nnoremap <silent> <space>ls  :<C-u>CocList sessions<cr>
+" Search tags
+nnoremap <silent> <space>lt  :<C-u>CocList tags<cr>
 " Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.

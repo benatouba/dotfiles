@@ -8,6 +8,8 @@
 	excludesfile = ~/.gitignore
 [web]
 	browser = firefox
+[init]
+    templatedir = '~/.git_template'
 [push]
 	default = matching
 [color]
@@ -35,3 +37,5 @@
     token = HjFkxTX23fhbMU-UB7yx
 [github]
     user = benatouba
+[alias]
+	ctags = !.git/hooks/ctags
