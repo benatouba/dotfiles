@@ -107,7 +107,7 @@ Plug 'michaeljsmith/vim-indent-object'
 " Indentation based movements
 Plug 'jeetsukumaran/vim-indentwise'
 " Better language packs
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
 " TODO is there a better option for neovim?
@@ -469,6 +469,7 @@ imap <leader>rs <Plug>RStart
 vmap <leader>rs <Plug>RStart
 map <leader>rxx <Plug>RSendLine
 map <leader>rxb <Plug>RSendAboveLines
+
 "=====================================================
 "" DevIcon Settings
 
@@ -781,10 +782,10 @@ inoremap <silent><expr> <c-space> coc#refresh()
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " use `:Org` for organize import of current buffer
-command! -nargs=0 Org   :call     CocAction('runCommand', 'editor.action.organizeImport')
+command! -nargs=0 Org   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
@@ -840,6 +841,21 @@ let g:coc_snippet_next = '<tab>'
 " Coc-Calc, coc-calc
 "
 " append result on current expression
-map <Leader>ca <Plug>(coc-calc-result-append)
+map <space>ca <Plug>(coc-calc-result-append)
 " replace result on current expression
-map <Leader>cr <Plug>(coc-calc-result-replace)
+map <space>cr <Plug>(coc-calc-result-replace)
+
+" Coc-todolist, coc-todolist
+"
+nnoremap <space>tc :CocCommand todolist.create<CR>
+nnoremap <space>tu :CocCommand todolist.upload<CR>
+nnoremap <space>td :CocCommand todolist.download<CR>
+nnoremap <space>te :CocCommand todolist.export<CR>
+nnoremap <space>t0 :CocCommand todolist.clearNotice<CR>
+nnoremap <space>tl :CocList todolist<CR>
+
+" coc-terminal
+
+nmap <space>tt <Plug>(coc-terminal-toggle)
+nmap <space>tr :CocCommand terminal.REPL<CR>
+nmap <space>tq :CocCommand terminal.Destroy<CR>
