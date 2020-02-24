@@ -2,16 +2,16 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/.dotfiles
+cd ~/.git_template/hooks
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 install.conf.yaml
+badd +1 ~/.config/nvim/init.vim
+badd +0 ~/.gitconfig
 argglobal
 %argdel
-$argadd install.conf.yaml
-edit install.conf.yaml
+edit ~/.gitconfig
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -28,12 +28,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 17 - ((16 * winheight(0) + 29) / 58)
+let s:l = 12 - ((11 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-17
-normal! 034|
+12
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

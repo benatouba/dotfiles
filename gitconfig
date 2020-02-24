@@ -9,7 +9,7 @@
 [web]
 	browser = firefox
 [init]
-    templatedir = '~/.git_template'
+	templatedir = ~/.git_template
 [push]
 	default = matching
 [color]
