@@ -91,13 +91,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocomp
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 ""  Python 
-
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-" Just to add the python go-to-definition and similar features, autocompletion
-" from this plugin is disabled
 " Plug 'davidhalter/jedi-vim'
-Plug 'heavenshell/vim-pydocstring'
+" Plug 'heavenshell/vim-pydocstring'
+Plug 'vim-scripts/django.vim'
 " Automatically close parenthesis, etc
 " Plug 'Townk/vim-autoclose'
 " Surround
