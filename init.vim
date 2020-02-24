@@ -55,6 +55,8 @@ Plug 'jacoborus/tender.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'nightsense/forgotten'
 Plug 'dracula/vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'KeitaNakamura/neodark.vim'
 
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
@@ -146,8 +148,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  , 'for': [
 " Improved php syntax
 Plug 'StanAngeloff/php.vim', {'for': 'inc'}
 
-" CoC extensions
-" Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " ============================================================================
@@ -176,9 +176,9 @@ let g:airline_theme='oceanicnext'
 
 let mapleader=","                           " set Mapleader
 
-if has('mouse')
-    set mouse=a
-endif
+" if has('mouse')
+"     set mouse=a
+" endif
 
 set encoding=utf-8                          " standard encoding
 
@@ -606,6 +606,23 @@ function! ColorOceanicNext()
     colorscheme OceanicNext
 endfunction
 
+function! ColorOnedark()
+    let g:onedark_terminal_italics=1
+    let g:airline_theme='onedark'
+    colorscheme onedark
+endfunction
+
+function! ColorPalenight()
+    let g:palenight_terminal_italics=1
+    let g:airline_theme='palenight'
+    colorscheme palenight
+endfunction
+
+function! ColorNeodark()
+    let g:airline_theme='palenight'
+    colorscheme neodark
+endfunction
+
 " switch aesthetics
 " nmap <leader>g :Goyo<CR>
 nmap <leader>ee :Colors<CR>
@@ -616,6 +633,9 @@ nmap <leader>e3 :call ColorTender()<CR>
 nmap <leader>e4 :call ColorZazen()<CR>
 nmap <leader>e5 :call ColorBadwolf()<CR>
 nmap <leader>e6 :call ColorOceanicNext()<CR>
+nmap <leader>e7 :call ColorOnedark()<CR>
+nmap <leader>e8 :call ColorPalenight()<CR>
+nmap <leader>e9 :call ColorNeodark()<CR>
 nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR>
 nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
 nmap <leader>tw :call TrimWhitespace()<CR>
@@ -653,6 +673,7 @@ nmap <space>gu :CocCommand git.chunkUndo<cr>
 "" Coc, coc
 
 let g:coc_global_extensions = [
+            \ 'coc-calc',
             \ 'coc-css',
             \ 'coc-dictionary',
             \ 'coc-emmet',
@@ -669,7 +690,9 @@ let g:coc_global_extensions = [
             \ 'coc-python',
             \ 'coc-r-lsp',
             \ 'coc-snippets',
+            \ 'coc-terminal',
             \ 'coc-texlab', 
+            \ 'coc-todolist',
             \ 'coc-tsserver',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
@@ -699,6 +722,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+nmap <silent> < <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -813,51 +837,9 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-""" VEONIM """"""""""""""""""""""""""""""""""""""""""
-if exists('veonim')
-
-" extensions for web dev
-let g:vscode_extensions = [
-  \'vscode.typescript-language-features',
-  \'vscode.css-language-features',
-  \'vscode.html-language-features',
-\]
-
-" multiple nvim instances
-nno <silent> <c-t>c :Veonim vim-create<cr>
-nno <silent> <c-g> :Veonim vim-switch<cr>
-nno <silent> <c-t>, :Veonim vim-rename<cr>
-
-" workspace functions
-nno <silent> ,f :Veonim files<cr>
-nno <silent> ,e :Veonim explorer<cr>
-nno <silent> ,b :Veonim buffers<cr>
-nno <silent> ,d :Veonim change-dir<cr>
-"or with a starting dir: nno <silent> ,d :Veonim change-dir ~/proj<cr>
-
-" searching text
-nno <silent> <space>fw :Veonim grep-word<cr>
-vno <silent> <space>fw :Veonim grep-selection<cr>
-nno <silent> <space>fa :Veonim grep<cr>
-nno <silent> <space>ff :Veonim grep-resume<cr>
-nno <silent> <space>fb :Veonim buffer-search<cr>
-
-" language features
-nno <silent> sr :Veonim rename<cr>
-nno <silent> sd :Veonim definition<cr>
-nno <silent> si :Veonim implementation<cr>
-nno <silent> st :Veonim type-definition<cr>
-nno <silent> sf :Veonim references<cr>
-nno <silent> sh :Veonim hover<cr>
-nno <silent> sl :Veonim symbols<cr>
-nno <silent> so :Veonim workspace-symbols<cr>
-nno <silent> sq :Veonim code-action<cr>
-nno <silent> sk :Veonim highlight<cr>
-nno <silent> sK :Veonim highlight-clear<cr>
-nno <silent> ,n :Veonim next-usage<cr>
-nno <silent> ,p :Veonim prev-usage<cr>
-nno <silent> sp :Veonim show-problem<cr>
-nno <silent> <c-n> :Veonim next-problem<cr>
-nno <silent> <c-p> :Veonim prev-problem<cr>
-
-endif
+" Coc-Calc, coc-calc
+"
+" append result on current expression
+map <Leader>ca <Plug>(coc-calc-result-append)
+" replace result on current expression
+map <Leader>cr <Plug>(coc-calc-result-replace)
