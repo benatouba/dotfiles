@@ -86,7 +86,7 @@ Plug 'Shougo/context_filetype.vim'
 ""  Python 
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-" Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 " Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/django.vim'
 " Indent text object
@@ -706,8 +706,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-
-nmap <silent> < <Plug>(coc-references)
+"
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -723,11 +722,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <space>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <space>f  <Plug>(coc-format-selected)
+nmap <space>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -792,7 +791,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>h  :<C-u>CocListResume<CR>
 
 "" coc-snippet
 
@@ -824,6 +823,9 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+" coc-python
+
+nmap <space>pi :CocCommand python.setInterpreter<CR>
 " Coc-Calc, coc-calc
 "
 " append result on current expression

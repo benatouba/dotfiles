@@ -1,0 +1,6 @@
+*.sqlite3
+.cfg
+__pycache__/
+*.pyc
+tags
+*.ctags

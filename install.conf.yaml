@@ -6,6 +6,7 @@
     ~/.bash_logout: bash_logout
     ~/.bash_aliases: bash_aliases
     ~/.gitconfig: gitconfig
+    ~/.gitignore: gitignore
     ~/.ssh/config:
         path: ssh/config
         create: true

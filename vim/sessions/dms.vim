@@ -11,8 +11,8 @@ badd +1 dms_backend/asgi.py
 badd +1 dms_backend/__init__.py
 badd +1 dms_backend/settings.py
 badd +1 dms_backend/urls.py
-badd +1 dms_backend/wsgi.py
-badd +1 ~/.config/nvim/init.vim
+badd +3 dms_backend/wsgi.py
+badd +8 dms_backend/models.py
 argglobal
 %argdel
 $argadd dms_backend/asgi.py
@@ -20,7 +20,7 @@ $argadd dms_backend/__init__.py
 $argadd dms_backend/settings.py
 $argadd dms_backend/urls.py
 $argadd dms_backend/wsgi.py
-edit ~/.config/nvim/init.vim
+edit dms_backend/models.py
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -28,7 +28,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-if bufexists("~/.config/nvim/init.vim") | buffer ~/.config/nvim/init.vim | else | edit ~/.config/nvim/init.vim | endif
+if bufexists("dms_backend/models.py") | buffer dms_backend/models.py | else | edit dms_backend/models.py | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -38,12 +38,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 775 - ((28 * winheight(0) + 29) / 58)
+let s:l = 11 - ((10 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-775
-normal! 035|
+11
+normal! 04|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
