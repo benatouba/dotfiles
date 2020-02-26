@@ -7,7 +7,7 @@ then
     alias upvim="vim +PlugUpgrade +PlugUpdate +CocUpdate"
     alias upall="up && upconda && upvim"
     alias rambox="/home/ben/.programs/rambox/rambox-0.7.2.Appimage"
-    alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+    alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 fi
 
 if [ $USER = "schmidt" ]; then
@@ -21,3 +21,5 @@ if [ $USER = "schmidt" ]; then
     alias idl="/usr/local/harris/idl87/bin/idl"
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 fi
+
+alias isntall="install"

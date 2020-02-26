@@ -631,10 +631,10 @@ nmap <leader>tw :call TrimWhitespace()<CR>
 let g:neoterm_default_mod='botright'        " open terminals with mod
 let g:neoterm_use_relative_path=1           " expand % to file path
 " mappings to send stuff to REPL
-nmap px <Plug>(neoterm-repl-send)           
-nmap pxx <Plug>(neoterm-repl-send-line)
-nmap pxf <Plug>(neoterm-repl-send-file)
-xmap px <Plug>(neoterm-repl-send)
+vmap <leader>x <Plug>(neoterm-repl-send)           
+nmap <leader>xx <Plug>(neoterm-repl-send-line)
+nmap <leader>xf <Plug>(neoterm-repl-send-file)
+xmap <leader>x <Plug>(neoterm-repl-send)
 
 "=====================================================
 ""
