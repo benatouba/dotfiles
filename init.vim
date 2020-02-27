@@ -654,6 +654,8 @@ nmap <leader>gj <Plug>(coc-git-prevchunk)
 nmap <leader>gk <Plug>(coc-git-nextchunk)
 nmap <leader>gi <Plug>(coc-git-chunkinfo)
 nmap <leader>gu :CocCommand git.chunkUndo<cr>
+" Twiggy
+nmap <leader>gt :Twiggy<CR>
 " Signify
 let g:signify_vcs_list = [ 'git' ]                  " vcs systems to check (many might slow opening of files)
 " nicer colors
