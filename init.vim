@@ -105,12 +105,12 @@ Plug 'mattn/emmet-vim', {'for': 'html'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'sodapopcan/vim-twiggy'
+" TODO: Switch to vim-gitgutter???
+Plug 'mhinz/vim-signify'  " Git diff icons on the side of the file lines
 " Surround
 Plug 'tpope/vim-surround'
 " Session
 Plug 'tpope/vim-obsession'
-" Git/mercurial/others diff icons on the side of the file lines
-Plug 'mhinz/vim-signify'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
 " Relative numbering of lines (0 is the current line)
@@ -131,6 +131,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  , 'for': ['markdown', 'vim-plug']}
 " Improved php syntax
 Plug 'StanAngeloff/php.vim', {'for': 'inc'}
+
+" support for --remote and 'friends'
+Plug 'mhinz/neovim-remote'
 
 call plug#end()
 
@@ -219,8 +222,19 @@ vnoremap <leader>P "+P
 
 " edit vimrc/zshrc and load vimrc bindings
 nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
 nnoremap <leader>eg :e ~/.gitconfig<CR>
 nnoremap <leader>eb :e ~/.bashrc<CR>
+nnoremap <leader>ch :checkhealth<CR>
+
+" Update Plugins
+function! UpdatePlugins()
+    PlugUpgrade
+    PlugUpdate
+    sleep 4
+    UpdateRemotePlugins
+endfunction
+nnoremap <leader>up :call UpdatePlugins()<CR>
 
 " ============================================================================
 " Navigation
@@ -366,20 +380,6 @@ if has('nvim') && !exists('g:fzf_layout')
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 endif
 
-" Signify ------------------------------
-
-let g:signify_vcs_list = [ 'git' ]                  " vcs systems to check (many might slow opening of files)
-" mappings to jump to changed blocks
-nmap <leader>sn <plug>(signify-next-hunk)
-nmap <leader>sp <plug>(signify-prev-hunk)
-" nicer colors
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
-
 " Autoclose ------------------------------
 
 " Fix to let ESC work as espected with Autoclose plugin
@@ -518,7 +518,7 @@ call coc#config('list.source.bibtex', {
   \})
 call coc#config('list.source.bibtex.citation', {
     \ 'before': '\cite{',
-	\ 'after': '}'
+    \ 'after': '}'
     \ })
 
 "=====================================================
@@ -638,26 +638,38 @@ xmap <leader>x <Plug>(neoterm-repl-send)
 
 "=====================================================
 ""
-" vim-fugitive
-nmap <silent> <leader>gs :Gstatus<cr>
+" fugitive
+nmap <leader>gs :Gstatus<cr>
 nmap <leader>ge :Gedit<cr>
-nmap <leader>gc :Gcommit %<cr>
+nmap <leader>gcf :Gcommit %<cr>
+nmap <leader>gcm :Gcommit %
 nmap <leader>gp :Gpush<cr>
 nmap <leader>gP :Gpull<cr>
+nmap <leader>gr :Gread<cr>
+nmap <leader>gb :Gblame<cr>
+" rhubarb
 nmap <leader>ghb :Gbrowse<cr>
-nmap <silent><leader>gr :Gread<cr>
-nmap <silent><leader>gb :Gblame<cr>
 " coc-git
-nmap <space>gj <Plug>(coc-git-prevchunk)
-nmap <space>gk <Plug>(coc-git-nextchunk)
-nmap <space>gi <Plug>(coc-git-chunkinfo)
-nmap <space>gu :CocCommand git.chunkUndo<cr>
+nmap <leader>gj <Plug>(coc-git-prevchunk)
+nmap <leader>gk <Plug>(coc-git-nextchunk)
+nmap <leader>gi <Plug>(coc-git-chunkinfo)
+nmap <leader>gu :CocCommand git.chunkUndo<cr>
+" Signify
+let g:signify_vcs_list = [ 'git' ]                  " vcs systems to check (many might slow opening of files)
+" nicer colors
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
 
 "=====================================================
 "" Coc, coc
 
 let g:coc_global_extensions = [
+            \ 'coc-bibtex',
             \ 'coc-calc',
             \ 'coc-css',
             \ 'coc-dictionary',
@@ -697,6 +709,7 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+nmap <space>ue :CocCommand extensions.forceUpdateAll<CR>
 " Use `(g` and `)g` to navigate diagnostics
 nmap <silent> (g <Plug>(coc-diagnostic-prev)
 nmap <silent> )g <Plug>(coc-diagnostic-next)
@@ -737,8 +750,8 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <space>a  <Plug>(coc-codeaction-selected)
+nmap <space>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <space>ac  <Plug>(coc-codeaction)
