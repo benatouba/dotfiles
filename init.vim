@@ -106,7 +106,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'sodapopcan/vim-twiggy'
 " TODO: Switch to vim-gitgutter???
-Plug 'mhinz/vim-signify'  " Git diff icons on the side of the file lines
+Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
 " Surround
 Plug 'tpope/vim-surround'
 " Session
@@ -630,6 +630,11 @@ nmap <leader>tw :call TrimWhitespace()<CR>
 "" Neoterm
 let g:neoterm_default_mod='botright'        " open terminals with mod
 let g:neoterm_use_relative_path=1           " expand % to file path
+let g:neoterm_direct_open_repl=1
+let g:neoterm_repl_python='/home/ben/.programs/anaconda3/bin/ipython'
+let g:neoterm_autoscroll=1
+let g:neoterm_keep_term_open=1
+let g:neoterm_term_per_tab=1
 " mappings to send stuff to REPL
 vmap <leader>x <Plug>(neoterm-repl-send)           
 nmap <leader>xx <Plug>(neoterm-repl-send-line)
@@ -637,7 +642,7 @@ nmap <leader>xf <Plug>(neoterm-repl-send-file)
 xmap <leader>x <Plug>(neoterm-repl-send)
 
 "=====================================================
-""
+"" Git section
 " fugitive
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>gw :Gwrite<cr>
@@ -649,6 +654,7 @@ nmap <leader>gP :Gpull<cr>
 nmap <leader>gr :Gread<cr>
 nmap <leader>gbf :Gblame<cr>
 nmap <leader>gbb v :Gblame<cr>
+nmap <leader>gm :Gmerge
 " rhubarb
 nmap <leader>ghb :Gbrowse<cr>
 " coc-git
