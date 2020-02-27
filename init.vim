@@ -640,6 +640,7 @@ xmap <leader>x <Plug>(neoterm-repl-send)
 ""
 " fugitive
 nmap <leader>gs :Gstatus<cr>
+nmap <leader>gw :Gwrite<cr>
 nmap <leader>ge :Gedit<cr>
 nmap <leader>gcf :Gcommit %<cr>
 nmap <leader>gcm :Gcommit %
