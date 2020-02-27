@@ -13,6 +13,7 @@
     ~/.zshrc: zshrc
     ~/.Xresources: Xresources
     ~/.config/nvim/init.vim: init.vim
+    ~/.config/nvim/coc-settings.json: coc-settings.json
     ~/.git_template/hooks/: 
         glob: true
         path: git_template/hooks/*
