@@ -646,7 +646,8 @@ nmap <leader>gcm :Gcommit %
 nmap <leader>gp :Gpush<cr>
 nmap <leader>gP :Gpull<cr>
 nmap <leader>gr :Gread<cr>
-nmap <leader>gb :Gblame<cr>
+nmap <leader>gbf :Gblame<cr>
+nmap <leader>gbb v :Gblame<cr>
 " rhubarb
 nmap <leader>ghb :Gbrowse<cr>
 " coc-git
