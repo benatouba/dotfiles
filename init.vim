@@ -268,14 +268,6 @@ map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
 
 " ============================================================================
-" Filetype specific commands
-" Execute line in python3
-autocmd FileType python nmap <leader>x :0,$!python3 -m yapf<CR>
-
-" clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
-
-" ============================================================================
 " Plugins settings and mappings
 
 " ack -----------------------------
@@ -638,7 +630,7 @@ let g:neoterm_term_per_tab=1
 " mappings to send stuff to REPL
 vmap <leader>x <Plug>(neoterm-repl-send)           
 nmap <leader>xx <Plug>(neoterm-repl-send-line)
-nmap <leader>xf <Plug>(neoterm-repl-send-file)
+nmap <leader>xf gg<S-v>``G<Plug>(neoterm-repl-send)``
 xmap <leader>x <Plug>(neoterm-repl-send)
 
 "=====================================================
@@ -846,9 +838,10 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-" coc-python
-
+" python, coc-python
 nmap <space>pi :CocCommand python.setInterpreter<CR>
+autocmd BufWritePre *.py :%s/\s\+$//e " trim trailing spaces
+
 " Coc-Calc, coc-calc
 "
 " append result on current expression
