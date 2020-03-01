@@ -127,7 +127,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 " Plug 'honza/vim-snippets'           " honza's snippet collection
 " Tell vim-plug we finished declaring plugins, so it can load them
 Plug 'ryanoasis/vim-devicons'
-" If you have nodejs and yarn
+" markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  , 'for': ['markdown', 'vim-plug']}
 " Improved php syntax
 Plug 'StanAngeloff/php.vim', {'for': 'inc'}
@@ -167,6 +167,7 @@ let mapleader=","                           " set Mapleader
 set encoding=utf-8                          " standard encoding
 
 set clipboard+=unnamedplus                  " use system clipboard
+set tags=./.git/tags,tags;                  " tag file path env"
 
 " FIXME:
 set scrolloff=7                             " let 10 lines before/after cursor during scroll
@@ -255,8 +256,6 @@ imap <M-Left> <ESC>:tabp<CR>
 
 " ============================================================================
 " Filetype specific commands
-" Execute line in python3
-autocmd FileType python nmap <leader>x :0,$!python3 -m yapf<CR>
 
 " clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
@@ -295,7 +294,7 @@ map <F2> :TaskList<CR>
 " file finder mapping
 nmap <leader>ff :Files<CR>
 " tags (symbols) in current file finder mapping
-" nmap <leader>fT :BTag<CR>
+nmap <leader>fT :BTag<CR>
 " tags (symbols) in all files finder mapping
 nmap <leader>ft :Tag<CR>
 " general code finder in current file mapping
