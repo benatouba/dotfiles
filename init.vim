@@ -84,7 +84,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocomp
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 ""  Python 
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 Plug 'davidhalter/jedi-vim'
 " Plug 'heavenshell/vim-pydocstring'
@@ -430,12 +430,6 @@ let g:NERDAltDelims_java = 1                    " Set a language to use its alte
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }   " Add your own custom formats or override the defaults
 let g:NERDCommentEmptyLines = 0                 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1            " Enable trimming of trailing whitespace when uncommenting
-
-"=====================================================
-"" Vim-isort
-
-let g:vim_isort_python_version = 'python3'
-let g:vim_isort_map = '<C-i>'
 
 "=====================================================
 "" NVim-R, Nvim-R, nvim-r, nvimr, R, r
