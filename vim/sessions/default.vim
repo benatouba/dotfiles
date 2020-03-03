@@ -2,17 +2,16 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/scripts/DMS_backend/data/templates/data
+cd ~/.dotfiles
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +10 upload.html
-badd +13 index.html
+badd +0 vim/sessions/default.vim
 argglobal
 %argdel
-$argadd upload.html
-edit index.html
+$argadd vim/sessions/default.vim
+edit vim/sessions/default.vim
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -29,11 +28,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 13 - ((12 * winheight(0) + 29) / 58)
+let s:l = 5 - ((4 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-13
+5
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

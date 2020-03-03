@@ -14,3 +14,8 @@ HostName 134.2.5.40
 User esd_guest
 Port 6307
 ForwardX11 yes
+
+Host cirr
+HostName cirrus.geo.hu-berlin.de
+User smidbenq
+ForwardX11 yes

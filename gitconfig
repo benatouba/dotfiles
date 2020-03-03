@@ -40,7 +40,7 @@
 [alias]
 	ctags = !.git/hooks/ctags
 [mergetool "nvim"]
-  cmd = vim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [merge]
   tool = nvim
 [mergetool]
