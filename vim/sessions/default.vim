@@ -8,18 +8,30 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +0 vim/sessions/default.vim
+badd +0 fugitive:///home/ben/.dotfiles/.git//2/vim/sessions/default.vim
+badd +0 fugitive:///home/ben/.dotfiles/.git//3/vim/sessions/default.vim
 argglobal
 %argdel
 $argadd vim/sessions/default.vim
-edit vim/sessions/default.vim
+edit fugitive:///home/ben/.dotfiles/.git//2/vim/sessions/default.vim
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe 'vert 1resize ' . ((&columns * 79 + 119) / 238)
+exe 'vert 2resize ' . ((&columns * 79 + 119) / 238)
+exe 'vert 3resize ' . ((&columns * 78 + 119) / 238)
 argglobal
-setlocal fdm=manual
+setlocal fdm=diff
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
@@ -27,13 +39,51 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-let s:l = 5 - ((4 * winheight(0) + 29) / 58)
+let s:l = 1 - ((0 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-5
+1
 normal! 0
+wincmd w
+argglobal
+if bufexists("vim/sessions/default.vim") | buffer vim/sessions/default.vim | else | edit vim/sessions/default.vim | endif
+setlocal fdm=diff
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 29) / 58)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists("fugitive:///home/ben/.dotfiles/.git//3/vim/sessions/default.vim") | buffer fugitive:///home/ben/.dotfiles/.git//3/vim/sessions/default.vim | else | edit fugitive:///home/ben/.dotfiles/.git//3/vim/sessions/default.vim | endif
+setlocal fdm=diff
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 29) / 58)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 79 + 119) / 238)
+exe 'vert 2resize ' . ((&columns * 79 + 119) / 238)
+exe 'vert 3resize ' . ((&columns * 78 + 119) / 238)
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

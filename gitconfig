@@ -39,9 +39,12 @@
     user = benatouba
 [alias]
 	ctags = !.git/hooks/ctags
+# define command which will be used when "vim" is set as a merge tool
 [mergetool "nvim"]
-  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+  cmd = ~/.programs/nvim.appimage -f -c \"Gvdiffsplit!\" \"$MERGED\"
+# set "vim" as tool for merging
 [merge]
   tool = nvim
+# automatically launch merge tool without displaying a prompt
 [mergetool]
   prompt = false
