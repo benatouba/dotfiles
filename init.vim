@@ -162,6 +162,7 @@ colorscheme OceanicNext
 let g:airline_theme='oceanicnext'
 
 let mapleader=","                           " set Mapleader
+let maplocalleader="-"                           " set Maplocalleader
 
 " if has('mouse')
 "     set mouse=a
@@ -347,7 +348,7 @@ nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 " Jedi-vim ------------------------------
 
 " " Disable autocompletion (using deoplete instead)
-" let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 0
 
 " " All these mappings work only for python code:
 " " Go to definition
@@ -359,7 +360,8 @@ nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 " " Go to definition in new tab
 " nmap ,D :tab split<CR>:call jedi#goto()<CR>
 
-" let g:jedi#auto_vim_configuration = 0           " no auto vim configuration
+let g:jedi#auto_vim_configuration = 0           " no auto vim configuration
+let g:jedi#auto_initialization = 0
 
 " fzf.vim ------------------------------
 
@@ -494,6 +496,8 @@ let g:DevIconsEnableFolderExtensionPatternMatching = 0
 "=====================================================
 "" Latex, latex, LaTeX
 "=====================================================
+let g:polyglot_disabled = ['latex']  " Disable polyplot for latex, needed for vimtex
+let g:vimtex_fold_enabled = 1
 
 " let g:tex_flavor = 'latex'
 let g:vimtex_compiler_progname = 'nvr'
@@ -830,7 +834,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+" let g:coc_snippet_next = '<tab>'
 
 " python, coc-python
 nmap <space>pi :CocCommand python.setInterpreter<CR>

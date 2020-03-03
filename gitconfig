@@ -39,3 +39,9 @@
     user = benatouba
 [alias]
 	ctags = !.git/hooks/ctags
+[mergetool "nvim"]
+  cmd = vim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+[merge]
+  tool = nvim
+[mergetool]
+  prompt = false
