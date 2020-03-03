@@ -1,0 +1,24 @@
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: linux-64
+black
+flake8
+ipython
+isort
+jedi
+mccabe
+mypy
+nodejs
+pip
+pipenv
+poetry
+pycodestyle
+pydocstyle
+pyflakes
+pylama
+pylint
+pynvim
+python
+rope
+virtualenv
+yarn
