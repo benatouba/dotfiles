@@ -7,7 +7,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 init.vim
+badd +1 init.vim
 argglobal
 %argdel
 $argadd init.vim

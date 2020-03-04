@@ -7,7 +7,7 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +4 polls/models.py
+badd +11 polls/models.py
 argglobal
 %argdel
 edit polls/models.py
@@ -17,6 +17,8 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '2resize ' . ((&lines * 1 + 30) / 61)
+exe 'vert 2resize ' . ((&columns * 26 + 59) / 118)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -27,12 +29,26 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 4 - ((3 * winheight(0) + 29) / 58)
+let s:l = 11 - ((10 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-4
+11
 normal! 0
+wincmd w
+argglobal
+enew
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+wincmd w
+exe '2resize ' . ((&lines * 1 + 30) / 61)
+exe 'vert 2resize ' . ((&columns * 26 + 59) / 118)
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

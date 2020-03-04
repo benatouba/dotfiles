@@ -428,7 +428,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 "=====================================================
 "" FZF
 
-nnoremap <C-p> :FZF<CR>
+nnoremap <c-p> :FZF<CR>
 
 "=====================================================
 "" NERDComment Settings
