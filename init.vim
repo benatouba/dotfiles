@@ -111,6 +111,7 @@ Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
 Plug 'tpope/vim-surround'
 " Session
 Plug 'tpope/vim-obsession'
+Plug 'mhinz/vim-startify'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
 " Relative numbering of lines (0 is the current line)
@@ -227,6 +228,7 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
 nnoremap <leader>eg :e ~/.gitconfig<CR>
 nnoremap <leader>eb :e ~/.bashrc<CR>
+nnoremap <leader>ec :CocConfig<CR>
 nnoremap <leader>ch :checkhealth<CR>
 
 " Update Plugins
@@ -268,6 +270,11 @@ map <M-Right> :tabn<CR>
 imap <M-Right> <ESC>:tabn<CR>
 map <M-Left> :tabp<CR>
 imap <M-Left> <ESC>:tabp<CR>
+
+" Session options and navigation
+"
+nmap <leader>ss :wa<Bar>exe "mksession! " . v:this_session<CR>
+let g:startify_session_dir = '~/.dotfiles/vim/sessions/'
 
 " ============================================================================
 " Plugins settings and mappings

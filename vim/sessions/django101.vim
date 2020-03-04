@@ -2,23 +2,15 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/scripts/DMS_backend
+cd ~/scripts/django101/mysite
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 dms_backend/asgi.py
-badd +1 dms_backend/settings.py
-badd +5 dms_backend/urls.py
-badd +3 dms_backend/wsgi.py
+badd +4 polls/models.py
 argglobal
 %argdel
-$argadd dms_backend/asgi.py
-$argadd dms_backend/__init__.py
-$argadd dms_backend/settings.py
-$argadd dms_backend/urls.py
-$argadd dms_backend/wsgi.py
-edit dms_backend/asgi.py
+edit polls/models.py
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -35,11 +27,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 29) / 58)
+let s:l = 4 - ((3 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+4
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

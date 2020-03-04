@@ -30,5 +30,6 @@
   },
 
   "session.saveOnVimLeave": true,
+  "session.directory": "~/.dotfiles/vim/sessions",
   "list.source.tags.command": "git ctags"
 }

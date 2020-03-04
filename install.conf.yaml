@@ -24,3 +24,4 @@
         path: vim/sessions/*
         create: true
         force: true
+    ~/.watchmanconfig: watchmanconfig
