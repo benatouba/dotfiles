@@ -2,6 +2,6 @@
   "root_files": [".watchmanconfig"],    
   "root_restrict_files": [".git", ".hg"],
   "illegal_fstypes": ["nfs", "cifs", "smb"],
-  "ignore_dirs": ["build", ".npm", ".config/nerd-fonts", ".programs", ".idl", ".cache", ".dbus"]
+  "ignore_dirs": ["build", ".vscode", ".gvfs", ".npm", ".config", ".programs", ".idl", ".cache", ".dbus"]
 }
 

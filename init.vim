@@ -21,8 +21,6 @@ if vim_plug_just_installed
     :execute 'source '.fnameescape(vim_plug_path)
 endif
 
-" Obscure hacks done, you can now modify the rest of the .vimrc as you wish :)
-
 " ============================================================================
 " Active plugins
 " You can disable or add new ones here:
@@ -39,7 +37,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/seoul256.vim'
 " Plug 'junegunn/vim-journal'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'zaki/zazen'
 Plug 'chriskempson/base16-vim'
 
 " Aethetics - themes
@@ -57,6 +54,7 @@ Plug 'nightsense/forgotten'
 Plug 'dracula/vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'KeitaNakamura/neodark.vim'
+Plug 'zaki/zazen'
 
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
@@ -79,7 +77,7 @@ Plug 'junegunn/fzf.vim'
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
 " Async autocompletion
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/echodoc.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocompletion using LSP
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
@@ -109,13 +107,12 @@ Plug 'sodapopcan/vim-twiggy'
 Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
 " Surround
 Plug 'tpope/vim-surround'
+Plug 'andymass/vim-matchup'
 " Session
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-obsession'
 Plug 'mhinz/vim-startify'
 " Yank history navigation
 Plug 'vim-scripts/YankRing.vim'
-" Relative numbering of lines (0 is the current line)
-Plug 'myusuf3/numbers.vim'
 " For R, RScript, Rscript, r, rscript
 Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
 " Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
@@ -156,6 +153,11 @@ endfunction
 source ~/.config/nvim/_machine_specific.vim
 " let g:neomake_logfile='/home/schmidt/.config/nvim/log/neomake.log'
 
+" let g:echodoc#enable_at_startup = 1
+" ============================================================================
+" provider paths
+
+let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
 " ============================================================================
 " Vim settings and mappings
 
@@ -172,7 +174,7 @@ let maplocalleader="-"                           " set Maplocalleader
 set encoding=utf-8                          " standard encoding
 
 set clipboard+=unnamedplus                  " use system clipboard
-set tags=./.git/tags,tags;                  " tag file path env"
+set tags=./.git/tags,tags;                  " tag file path env
 
 " FIXME:
 set scrolloff=7                             " let 10 lines before/after cursor during scroll
@@ -187,8 +189,15 @@ set expandtab                               " expand tabs into spaces
 set backspace=indent,eol,start              " make backspace behave in a sane manner
 set splitright                              " open split window on right side
 set splitbelow                              " open split window on right side
-
-set nu                                      " show line numbers
+ 
+" set number relativenumber                   " turn hybrid line numbers on
+set nu rnu                                  " show line numbers
+" toggle relativenumber/number when window gains/looses focus
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 set ignorecase                              " ignore case of letter in search
 set smartcase                               " override ignorecase if capital letter is typed
 set hlsearch                                " highlight search results
@@ -241,6 +250,13 @@ endfunction
 nnoremap <leader>up :call UpdatePlugins()<CR>
 
 " ============================================================================
+" FileType specifications
+
+au BufRead,BufNewFile *.pro set filetype=idlang
+au BufRead,BufNewFile bash* set filetype=bash
+
+
+" ============================================================================
 " Navigation
 
 " window and tab navigation
@@ -248,15 +264,15 @@ nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
 
 " Alt-<key> split movement in all modes (no terminal)
-map <A-h> <Esc><c-w>h
-map <A-j> <Esc><c-w>j
-map <A-k> <Esc><c-w>k
-map <A-l> <Esc><c-w>l
+noremap <A-h> <Esc>:tabn<CR>
+noremap <A-j> <Esc>:bnext<CR>
+noremap <A-k> <Esc>:bprev<CR>
+noremap <A-l> <Esc>:tabp<CR>
 " Alt-<key> split movement in terminal mode
-tnoremap <A-h> <c-\><c-n><c-w>h
-tnoremap <A-j> <c-\><c-n><c-w>j
-tnoremap <A-k> <c-\><c-n><c-w>k
-tnoremap <A-l> <c-\><c-n><c-w>l
+tnoremap <A-h> <c-\><c-n>:tabn<CR>
+tnoremap <A-j> <c-\><c-n>:bnext<CR>
+tnoremap <A-k> <c-\><c-n>:bprev<CR>
+tnoremap <A-l> <c-\><c-n>:tabp<CR>
 
 " terminal mappings
 tmap <Esc> <C-\><C-n>
@@ -265,7 +281,7 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
 " tab navigation mappings
-map tt :tabnew
+map tt :tabnew<CR>
 map <M-Right> :tabn<CR>
 imap <M-Right> <ESC>:tabn<CR>
 map <M-Left> :tabp<CR>
@@ -279,8 +295,8 @@ let g:startify_session_dir = '~/.dotfiles/vim/sessions/'
 " ============================================================================
 " Plugins settings and mappings
 
-" ack -----------------------------
-
+" Rainbow parentheses -----------------------------
+autocmd VimEnter * RainbowParentheses
 " Tagbar -----------------------------
 map <F4> :TagbarToggle<CR>                  " toggle tagbar display
 let g:tagbar_autofocus = 1                  " autofocus on tagbar open
@@ -509,15 +525,6 @@ let g:vimtex_fold_enabled = 1
 
 " let g:tex_flavor = 'latex'
 let g:vimtex_compiler_progname = 'nvr'
-call coc#config('list.source.bibtex', {
-  \  'files': [
-  \    '~/documents/bibtex/library.bib'
-  \  ]
-  \})
-call coc#config('list.source.bibtex.citation', {
-    \ 'before': '\cite{',
-    \ 'after': '}'
-    \ })
 
 "=====================================================
 "" Snippets, neosnippet
@@ -677,7 +684,6 @@ highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 "" Coc, coc
 
 let g:coc_global_extensions = [
-            \ 'coc-bibtex',
             \ 'coc-calc',
             \ 'coc-css',
             \ 'coc-dictionary',
@@ -792,7 +798,7 @@ command! -nargs=? Fold :call CocAction('fold', <f-args>)
 command! -nargs=0 Org   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{ObsessionStatus()}%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
 " Show all diagnostics

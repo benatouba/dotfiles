@@ -2,12 +2,12 @@
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
-  "python.linting.flake8Args": ["--verbose", "--max-line-length", "110"],
-  "python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "110"],
+  "python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
+  "python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
 
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
-  "python.formatting.blackArgs": ["--line-length", "110"],
+  "python.formatting.blackArgs": ["--line-length", "120"],
 
   "python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
   "latex.build.executable": "/usr/bin/pdflatex",

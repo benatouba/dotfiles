@@ -7,10 +7,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 dms_backend/asgi.py
-badd +1 dms_backend/settings.py
-badd +5 dms_backend/urls.py
-badd +3 dms_backend/wsgi.py
+badd +126 data/models.py
+badd +94 dms_backend/settings.py
+badd +7 data/views.py
+badd +1 dms_backend/__init__.py
+badd +1 dms_backend/urls.py
+badd +1 dms_backend/wsgi.py
+badd +13 manage.py
+badd +190 ~/.config/nvim/init.vim
 argglobal
 %argdel
 $argadd dms_backend/asgi.py
@@ -18,7 +22,7 @@ $argadd dms_backend/__init__.py
 $argadd dms_backend/settings.py
 $argadd dms_backend/urls.py
 $argadd dms_backend/wsgi.py
-edit dms_backend/asgi.py
+edit data/views.py
 set splitbelow splitright
 wincmd t
 set winminheight=0
@@ -26,6 +30,10 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
+if bufexists("data/views.py") | buffer data/views.py | else | edit data/views.py | endif
+if &buftype ==# 'terminal'
+  silent file data/views.py
+endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -35,12 +43,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 29) / 58)
+let s:l = 27 - ((26 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+27
+normal! 029|
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

@@ -6,8 +6,9 @@ then
     alias upconda="conda update -n base conda && conda update -n neovim3 --file ~/.dotfiles/conda_neovim3.yaml"
     alias upvim="vim +PlugUpgrade +CocUpdate +PlugUpdate +UpdateRemotePlugins"
     alias upall="up && upconda && upvim"
-    alias rambox="/home/ben/.programs/rambox/rambox-0.7.2.Appimage"
+    alias rambox="/home/ben/.programs/rambox/rambox-0.7.3.Appimage"
     alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
+    alias watchman_reset="watchman watch-del-all && watchman shutdown-server"
 fi
 
 if [ $USER = "schmidt" ]; then

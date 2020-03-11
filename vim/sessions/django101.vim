@@ -7,18 +7,21 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +11 polls/models.py
+badd +7 polls/models.py
+badd +68 term:///home/ben/scripts/django101/mysite//11116:/bin/bash
+badd +11 polls/views.py
+badd +4 polls/templates/polls/detail.html
+badd +10 polls/urls.py
+badd +5 polls/templates/polls/index.html
 argglobal
 %argdel
-edit polls/models.py
+edit polls/urls.py
 set splitbelow splitright
 wincmd t
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '2resize ' . ((&lines * 1 + 30) / 61)
-exe 'vert 2resize ' . ((&columns * 26 + 59) / 118)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -29,15 +32,20 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 29) / 58)
+let s:l = 10 - ((9 * winheight(0) + 29) / 58)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
+10
 normal! 0
-wincmd w
+tabedit polls/templates/polls/detail.html
+set splitbelow splitright
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-enew
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -46,10 +54,14 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-wincmd w
-exe '2resize ' . ((&lines * 1 + 30) / 61)
-exe 'vert 2resize ' . ((&columns * 26 + 59) / 118)
-tabnext 1
+silent! normal! zE
+let s:l = 12 - ((11 * winheight(0) + 29) / 58)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+12
+normal! 0
+tabnext 2
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
