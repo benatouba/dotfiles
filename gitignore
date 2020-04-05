@@ -6,3 +6,7 @@
 **/*.ctags
 **/**/default.vim
 **/*.vim
+**/*.coverage*
+**/*cache*
+.vscode
+**/htmlcov*
