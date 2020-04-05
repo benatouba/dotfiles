@@ -2,34 +2,101 @@
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
-  "python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
-  "python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
-
+  "python.linting.flake8Args": [
+    "--verbose",
+    "--max-line-length",
+    "120"
+  ],
+  "python.linting.pylintArgs": [
+    "--ignored-modules",
+    "netCDF4",
+    "--line-length",
+    "120"
+  ],
   "python.formatting.provider": "black",
   "python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
-  "python.formatting.blackArgs": ["--line-length", "120"],
-
+  "python.formatting.blackArgs": [
+    "--line-length",
+    "120"
+  ],
   "python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
   "latex.build.executable": "/usr/bin/pdflatex",
   "latex.build.onSave": true,
   "latex.build.outputDirectory": ".",
   "latex.lint.onSave": true,
   "latex.forwardSearch.executable": "evince",
-
-  "html.filetypes": [ "html", "handlebars", "inc"],
+  "html.filetypes": [
+    "html",
+    "handlebars",
+    "inc"
+  ],
   "html.format.enable": true,
-
   "r.lsp.path": "~/R/x86_64-pc-linux-gnu-library/3.6/languageserver/R/languageserver",
-
   "languageserver": {
-      "bash": {
-          "command": "bash-language-server",
-          "args": ["start"],
-          "filetypes": ["sh"]
-      }
+    "bash": {
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ]
+    }
   },
-
   "session.saveOnVimLeave": true,
   "session.directory": "~/.dotfiles/vim/sessions",
-  "list.source.tags.command": "git ctags"
+  "list.source.tags.command": "git ctags",
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    ".pytest_cache": true,
+    "**/__init__.py": true,
+    "**/__pycache__": true,
+    "**/.coverage": true,
+    "**/*.pyc": true,
+    "**/*.vim": true
+  },
+  "vim.enableNeovim": true,
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "d"
+      ],
+      "after": [
+        "d",
+        "d"
+      ]
+    },
+    {
+      "before": [
+        "<C-n>"
+      ],
+      "commands": [
+        ":nohl"
+      ]
+    }
+  ],
+  "vim.leader": ",",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "window.zoomLevel": 0,
+  "editor.formatOnSave": true
 }

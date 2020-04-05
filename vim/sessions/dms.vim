@@ -7,14 +7,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +126 data/models.py
-badd +94 dms_backend/settings.py
-badd +7 data/views.py
+badd +44 data/models.py
+badd +29 data/views.py
+badd +5 data/urls.py
 badd +1 dms_backend/__init__.py
+badd +1 dms_backend/settings.py
 badd +1 dms_backend/urls.py
 badd +1 dms_backend/wsgi.py
-badd +13 manage.py
-badd +190 ~/.config/nvim/init.vim
 argglobal
 %argdel
 $argadd dms_backend/asgi.py
@@ -43,12 +42,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 27 - ((26 * winheight(0) + 29) / 58)
+let s:l = 29 - ((26 * winheight(0) + 26) / 53)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
-normal! 029|
+29
+normal! 0
 tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

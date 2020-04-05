@@ -81,6 +81,8 @@ Plug 'fisadev/FixedTaskList.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocompletion using LSP
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
+" Testing
+Plug 'janko/vim-test'
 ""  Python 
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
@@ -236,6 +238,7 @@ vnoremap <leader>P "+P
 nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
 nnoremap <leader>eg :e ~/.gitconfig<CR>
+nnoremap <leader>ei :e ~/.gitignore<CR>
 nnoremap <leader>eb :e ~/.bashrc<CR>
 nnoremap <leader>ec :CocConfig<CR>
 nnoremap <leader>ch :checkhealth<CR>
@@ -630,6 +633,11 @@ nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR>
 nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
 nmap <leader>tw :call TrimWhitespace()<CR>
 
+"=====================================================
+"" vim-test, test
+let test#strategy = "neovim"
+let test#python#runner = 'py.test'
+
 
 "=====================================================
 "" Neoterm
@@ -794,8 +802,8 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
-" use `:Org` for organize import of current buffer
-command! -nargs=0 Org   :call CocAction('runCommand', 'editor.action.organizeImport')
+" use `:Sort` for organize import of current buffer
+command! -nargs=0 Sort   :call CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
