@@ -55,6 +55,26 @@
     "**/*.pyc": true,
     "**/*.vim": true
   },
+  "coc.preferences.formatOnSaveFiletypes": ["css", "markdown"],
+  "prettier.printWidth": 120,
+  "prettier.tabWidth": 2,
+  "prettier.useTabs": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.disableLanguages": [],
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.options.tabSize": 2,
+  "vetur.format.options.useTabs": true,
+  "vetur.format.defaultFormatterOptions": {
+		"prettier": {
+			"singleQuote": true,
+			"semi": false,
+			"trailingComma": "es5"
+		}
+  },
+  "vetur.trace.server": "messages",
+
   "vim.enableNeovim": true,
   "vim.easymotion": true,
   "vim.incsearch": true,
@@ -98,5 +118,7 @@
     "<C-f>": false
   },
   "window.zoomLevel": 0,
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
 }
