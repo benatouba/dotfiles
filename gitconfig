@@ -29,14 +29,17 @@
 	changed = yellow bold
 	untracked = red bold
 [diff]
-	tool = vimdiff
-[difftool]
+	tool = nvim
+[difftool "nvim"]
+    cmd = ~/.programs/nvim.appimage 
 	prompt = false
 [gitlab]
     user = schmidt
     token = HjFkxTX23fhbMU-UB7yx
 [github]
     user = benatouba
+[overleaf]
+    user = benjaminschmmidt88@gmail.com
 [alias]
 	ctags = !.git/hooks/ctags
 # define command which will be used when "vim" is set as a merge tool

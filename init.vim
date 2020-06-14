@@ -132,8 +132,12 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  , 'for': [
 " Improved php syntax
 Plug 'StanAngeloff/php.vim', {'for': 'inc'}
 
+" Multilanguage debug
+Plug 'vim-vdebug/vdebug'
+
 " support for --remote and 'friends'
 Plug 'mhinz/neovim-remote'
+Plug 'tpope/vim-dispatch'
 
 call plug#end()
 
@@ -206,6 +210,8 @@ set hlsearch                                " highlight search results
 set incsearch                               " set incremental search, like modern browsers
 set noerrorbells                            " turn off error sound notification
 set visualbell                              " visual error notification
+set spell                                   " set spellchecking
+set spelllang=en_us, de_de                  " set language dicts
 
 set fillchars+=vert:\                       " remove vertical lines on window division
 
@@ -635,9 +641,14 @@ nmap <leader>tw :call TrimWhitespace()<CR>
 
 "=====================================================
 "" vim-test, test
-let test#strategy = "neovim"
-let test#python#runner = 'py.test'
+let test#strategy = "dispatch"
+" let test#python#runner = 'pytest'
 
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
 
 "=====================================================
 "" Neoterm
@@ -692,6 +703,7 @@ highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 "" Coc, coc
 
 let g:coc_global_extensions = [
+            \ 'coc-bibtex',
             \ 'coc-calc',
             \ 'coc-css',
             \ 'coc-dictionary',
@@ -705,6 +717,7 @@ let g:coc_global_extensions = [
             \ 'coc-json',
             \ 'coc-lists',
             \ 'coc-pairs', 
+            \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-python',
             \ 'coc-r-lsp',
@@ -876,7 +889,7 @@ nnoremap <space>tu :CocCommand todolist.upload<CR>
 nnoremap <space>td :CocCommand todolist.download<CR>
 nnoremap <space>te :CocCommand todolist.export<CR>
 nnoremap <space>t0 :CocCommand todolist.clearNotice<CR>
-nnoremap <space>tl :CocList todolist<CR>
+nnoremap <space>ltd :CocList todolist<CR>
 
 " coc-terminal
 
