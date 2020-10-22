@@ -8,7 +8,6 @@ isort
 jedi
 mccabe
 mypy
-nodejs
 pip
 pipenv
 poetry
@@ -21,4 +20,3 @@ pynvim
 python
 rope
 virtualenv
-yarn

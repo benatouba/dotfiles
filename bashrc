@@ -11,6 +11,9 @@ fi
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# add to path
+export PATH="/opt/WebDriver/bin:$PATH:/var/lib/gems/2.7.0"
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -134,7 +137,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
-base16_solarized-dark
+base16_gruvbox-dark-soft
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -150,5 +153,5 @@ else
 fi
 unset __conda_setup
 conda activate
+unset HOST
 # <<< conda initialize <<<
-

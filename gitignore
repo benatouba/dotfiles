@@ -4,6 +4,8 @@
 **/*.pyc
 **/tags
 **/*.ctags
+**/*.orig
+bk/
 **/**/default.vim
 **/*.vim
 **/*.coverage*

@@ -1,31 +1,28 @@
 {
-	"python.linting.enabled": true,
-	"python.linting.flake8Enabled": true,
-	"python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
-	"python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
-	"python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
-	"python.formatting.provider": "black",
-	"python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
-	"python.formatting.blackArgs": ["--line-length", "120"],
-	"python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
-	"latex.build.executable": "/usr/bin/pdflatex",
-	"latex.build.onSave": true,
-	"latex.build.outputDirectory": ".",
-	"latex.lint.onSave": true,
-	"latex.forwardSearch.executable": "evince",
-	"html.filetypes": ["html", "handlebars", "inc"],
-	"html.format.enable": true,
-	"r.lsp.path": "~/R/x86_64-pc-linux-gnu-library/3.6/languageserver/R/languageserver",
-	"languageserver": {
-		"bash": {
-			"command": "bash-language-server",
-			"args": ["start"],
-			"filetypes": ["sh"]
-		}
+	"coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "vue", "python"],
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
 	},
-	"session.saveOnVimLeave": true,
-	"session.directory": "~/.dotfiles/vim/sessions",
-	"list.source.tags.command": "git ctags",
+	"editor.formatOnSave": true,
+	"editor.suggestSelection": "first",
+	"explorer.confirmDelete": false,
+    "explorer.quitOnOpen": true,
+    "explorer.sources": [
+        {
+            "name": "bookmark",
+            "expand": true
+        },
+        {
+            "name": "buffer",
+            "expand": true
+        },
+        {
+            "name": "file",
+            "expand": true
+        }
+    ],
+    "explorer.icon.enableNerdfont": true,
 	"files.autoSave": "onFocusChange",
 	"files.exclude": {
 		".pytest_cache": true,
@@ -35,27 +32,61 @@
 		"**/*.pyc": true,
 		"**/*.vim": true
 	},
-	"coc.preferences.formatOnSaveFiletypes": ["css", "markdown"],
+	"html.filetypes": ["html", "handlebars", "inc"],
+	"html.format.enable": true,
+    "javascript.format.enabled": true,
+    "javascript.showUnused": true,
+    "javascript.updateImportsOnFileMove.enable": true,
+	"latex.build.executable": "/usr/bin/pdflatex",
+	"latex.build.onSave": true,
+	"latex.build.outputDirectory": ".",
+	"latex.lint.onSave": true,
+	"latex.forwardSearch.executable": "evince",
+    "list.source.files.args": ["--hidden", "--files"],
     "eslint.autoFixOnSave": true,
+    "eslint.packageManager": "npm",
+    "eslint.options": {"configFile": "/home/ben/.dotfiles/eslintrc.json"},
+    "prettier.bracketSpacing": true,
     "prettier.eslintIntegration": true,
 	"prettier.printWidth": 120,
-	"prettier.tabWidth": 2,
+    "prettier.proseWrap": "always",
+    "prettier.semi": false,
 	"prettier.singleQuote": true,
+	"prettier.tabWidth": 4,
 	"prettier.trailingComma": "es5",
-	"prettier.disableLanguages": [""],
+    "python.insidersChannel": "off",
+    "python.jediEnabled": false,
+	"python.languageServer": "Pylance",
+	"python.linting.enabled": true,
+	"python.linting.flake8Enabled": true,
+	"python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
+	"python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
+    "python.linting.lintOnSave": true,
+	"python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
+	"python.formatting.provider": "black",
+	"python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
+	"python.formatting.blackArgs": ["--line-length", "120"],
+	"python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
+	"r.lsp.path": "~/R/x86_64-pc-linux-gnu-library/3.6/languageserver/R/languageserver",
+	"session.saveOnVimLeave": true,
+	"session.directory": "~/.dotfiles/vim/sessions",
+    "tsserver.enableJavascript": true,
+    "tsserver.formatOnType": true,
 	"vetur.format.defaultFormatter.css": "prettier",
 	"vetur.format.defaultFormatter.html": "prettier",
 	"vetur.format.options.tabSize": 2,
-	"vetur.format.options.useTabs": true,
 	"vetur.format.defaultFormatterOptions": {
 		"prettier": {
-			"singleQuote": true,
-			"semi": false,
-			"trailingComma": "es5"
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": false,
+        "singleQuote": true,
+        "arrowParens": "avoid",
+        "printWidth": 120
 		}
 	},
+    "vetur.format.scriptInitialIndent": false,
 	"vetur.trace.server": "messages",
-
 	"vim.enableNeovim": true,
 	"vim.easymotion": true,
 	"vim.incsearch": true,
@@ -83,8 +114,12 @@
 		"<C-a>": false,
 		"<C-f>": false
 	},
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
 	"window.zoomLevel": 0,
-	"editor.formatOnSave": true,
-	"editor.suggestSelection": "first",
-	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+    "workbench.colorTheme": "Material Theme",
+    "workbench.iconTheme": "material-icon-theme",
+	"todo-tree.tree.showScanModeButton": false,
+	"prettier.arrowParens": "avoid",
+	"php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
+	"php-cs-fixer.lastDownload": 1602760782672
 }

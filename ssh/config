@@ -4,7 +4,7 @@ User schmidt
 ForwardX11 yes
 LocalForward 8086 localhost:8086
 
-Host fs2
+Host tu-fs2
 HostName 130.149.72.63
 User schmidt
 ForwardX11 yes
@@ -18,4 +18,22 @@ ForwardX11 yes
 Host cirr
 HostName cirrus.geo.hu-berlin.de
 User smidbenq
+ForwardX11 yes
+
+Host dms
+Hostname 130.149.72.77
+User schmidt
+
+Host pi-hole
+Hostname 192.168.178.50
+User pi
+
+Host ec2
+Hostname 52.58.141.180
+User ec2-user
+IdentityFile "~/.ssh/ec2-demo.pem"
+
+Host tuDesktop
+Hostname 130.149.72.50
+User ben
 ForwardX11 yes

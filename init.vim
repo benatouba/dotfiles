@@ -40,20 +40,21 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'chriskempson/base16-vim'
 
 " Aethetics - themes
-Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
-Plug 'rhysd/vim-color-spring-night'
-Plug 'tomasr/molokai'
-Plug 'sjl/badwolf'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'neg-serg/neg'
-Plug 'jacoborus/tender.vim'
-Plug 'lifepillar/vim-solarized8'
-Plug 'nightsense/forgotten'
 Plug 'dracula/vim'
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'jacoborus/tender.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'KeitaNakamura/neodark.vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'mhartington/oceanic-next'
+Plug 'morhetz/gruvbox'
+Plug 'neg-serg/neg'
+Plug 'nightsense/forgotten'
+Plug 'rhysd/vim-color-spring-night'
+Plug 'sjl/badwolf'
+Plug 'tomasr/molokai'
 Plug 'zaki/zazen'
 
 " Close buffers but keep splits
@@ -78,7 +79,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'fisadev/FixedTaskList.vim'
 " Async autocompletion
 " Plug 'Shougo/echodoc.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}                       " Autocompletion using LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 " Testing
@@ -86,7 +87,7 @@ Plug 'janko/vim-test'
 ""  Python 
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 " Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/django.vim'
 " Indent text object
@@ -98,9 +99,9 @@ Plug 'sheerun/vim-polyglot'
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
 " Highlight matching html tags
-Plug 'valloric/MatchTagAlways', {'for': 'html'}
+" Plug 'valloric/MatchTagAlways', {'for': 'html'}
 " Generate html in a simple way
-Plug 'mattn/emmet-vim', {'for': 'html'}
+" Plug 'mattn/emmet-vim', {'for': 'html'}
 " Git integration
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
@@ -123,8 +124,8 @@ Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
 Plug 'lervag/vimtex', {'for': 'tex'}
 " Snippets
 " Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'   " shougo's snippet collection
-" Plug 'honza/vim-snippets'           " honza's snippet collection
+Plug 'Shougo/neosnippet-snippets'   " shougo's snippet collection
+Plug 'honza/vim-snippets'           " honza's snippet collection
 " Tell vim-plug we finished declaring plugins, so it can load them
 Plug 'ryanoasis/vim-devicons'
 " markdown preview
@@ -134,12 +135,14 @@ Plug 'StanAngeloff/php.vim', {'for': 'inc'}
 
 " Multilanguage debug
 Plug 'vim-vdebug/vdebug'
-
+Plug 'puremourning/vimspector'
 " support for --remote and 'friends'
 Plug 'mhinz/neovim-remote'
 Plug 'tpope/vim-dispatch'
 
 call plug#end()
+
+nmap <F5> <Plug>VimspectorContinue
 
 " ============================================================================
 " Install plugins the first time vim runs
@@ -167,8 +170,9 @@ let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
 " ============================================================================
 " Vim settings and mappings
 
-colorscheme OceanicNext
-let g:airline_theme='oceanicnext'
+let g:gruvbox_italic=1
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
 
 let mapleader=","                           " set Mapleader
 let maplocalleader="-"                           " set Maplocalleader
@@ -210,8 +214,10 @@ set hlsearch                                " highlight search results
 set incsearch                               " set incremental search, like modern browsers
 set noerrorbells                            " turn off error sound notification
 set visualbell                              " visual error notification
-set spell                                   " set spellchecking
-set spelllang=en_us, de_de                  " set language dicts
+"
+" set spellchecking
+autocmd BufRead,BufNewFile *.md *.txt *.tex setlocal spell
+set spelllang=en_us,de_de                  " set language dicts
 
 set fillchars+=vert:\                       " remove vertical lines on window division
 
@@ -223,7 +229,7 @@ set shell=/bin/bash                         " set shell used for commands (neoma
 " if (has("termguicolors"))
 set termguicolors                           " set colorspace (important for most colorschemes)
 " endif
-let base16colorspace=256                    " set base16 colorspace (importatn for base16 colorschemes)
+" let base16colorspace=256                    " set base16 colorspace (importatn for base16 colorschemes)
 syntax enable
 
 nnoremap <silent> // :noh<CR>               " clear search results
@@ -268,10 +274,6 @@ au BufRead,BufNewFile bash* set filetype=bash
 " ============================================================================
 " Navigation
 
-" window and tab navigation
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
-
 " Alt-<key> split movement in all modes (no terminal)
 noremap <A-h> <Esc>:tabn<CR>
 noremap <A-j> <Esc>:bnext<CR>
@@ -298,7 +300,6 @@ imap <M-Left> <ESC>:tabp<CR>
 
 " Session options and navigation
 "
-nmap <leader>ss :wa<Bar>exe "mksession! " . v:this_session<CR>
 let g:startify_session_dir = '~/.dotfiles/vim/sessions/'
 
 " ============================================================================
@@ -312,23 +313,7 @@ let g:tagbar_autofocus = 1                  " autofocus on tagbar open
 
 " Tasklist ------------------------------
 " show pending tasks list
-map <F2> :TaskList<CR>
-
-" Neomake ------------------------------
-
-" Run linter on write
-" autocmd! BufWritePost * Neomake
-" let g:neomake_verbose=1
-" let g:neomake_open_list = 1
-
-" Check code as python3 by default
-" let g:neomake_python_enabled_makers = ['pyflakes']
-" let g:neomake_python_python_maker = neomake#makers#ft#python#python()
-" let g:neomake_python_flake8_maker = neomake#makers#ft#python#flake8()
-" let g:neomake_python_python_maker.exe = 'python3 -m py_compile'
-" let g:neomake_python_flake8_maker.exe = 'python3 -m flake8'
-
-" call neomake#configure#automake('w', 1000)
+map <F3> :TaskList<CR>
 
 " Fzf ------------------------------
 
@@ -366,33 +351,10 @@ nmap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
 nmap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
 nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 
-
-" Deoplete -----------------------------
-
-" let g:deoplete#enable_at_startup = 0
-" let g:context_filetype#same_filetypes = {}
-" let g:context_filetype#same_filetypes._ = '_'
-" call deoplete#custom#option({
-"             \'auto_complete_delay': 200,
-"             \'refresh_always': v:false,
-"             \})
-" call deoplete#initialize()
-
 " Jedi-vim ------------------------------
 
 " " Disable autocompletion (using deoplete instead)
 let g:jedi#completions_enabled = 0
-
-" " All these mappings work only for python code:
-" " Go to definition
-" let g:jedi#goto_command = ',d'
-" " Find ocurrences
-" let g:jedi#usages_command = ',o'
-" " Find assignments
-" let g:jedi#goto_assignments_command = ',a'
-" " Go to definition in new tab
-" nmap ,D :tab split<CR>:call jedi#goto()<CR>
-
 let g:jedi#auto_vim_configuration = 0           " no auto vim configuration
 let g:jedi#auto_initialization = 0
 
@@ -529,7 +491,7 @@ let g:DevIconsEnableFolderExtensionPatternMatching = 0
 "=====================================================
 "" Latex, latex, LaTeX
 "=====================================================
-let g:polyglot_disabled = ['latex']  " Disable polyplot for latex, needed for vimtex
+" let g:polyglot_disabled = ['latex']  " Disable polyplot for latex, needed for vimtex
 let g:vimtex_fold_enabled = 1
 
 " let g:tex_flavor = 'latex'
@@ -589,12 +551,6 @@ function! ColorZazen()
     " IndentLinesEnable
 endfunction
 
-" Dracula Mode (Dark)
-function! ColorBadwolf()
-    let g:airline_theme='badwolf'
-    colorscheme badwolf
-endfunction
-
 function! ColorBadwolf()
     let g:airline_theme='badwolf'
     colorscheme badwolf
@@ -622,6 +578,11 @@ function! ColorNeodark()
     colorscheme neodark
 endfunction
 
+function! ColorGruvbox()
+    let g:airline_theme='gruvbox'
+    colorscheme gruvbox
+endfunction
+
 " switch aesthetics
 " nmap <leader>g :Goyo<CR>
 nmap <leader>ee :Colors<CR>
@@ -635,6 +596,7 @@ nmap <leader>e6 :call ColorOceanicNext()<CR>
 nmap <leader>e7 :call ColorOnedark()<CR>
 nmap <leader>e8 :call ColorPalenight()<CR>
 nmap <leader>e9 :call ColorNeodark()<CR>
+nmap <leader>e0 :call ColorGruvbox()<CR>
 nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR>
 nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
 nmap <leader>tw :call TrimWhitespace()<CR>
@@ -666,6 +628,9 @@ nmap <leader>xf gg<S-v>``G<Plug>(neoterm-repl-send)``
 xmap <leader>x <Plug>(neoterm-repl-send)
 
 "=====================================================
+"" Neoterm
+
+"=====================================================
 "" Git section
 " fugitive
 nmap <leader>gs :Gstatus<cr>
@@ -679,6 +644,8 @@ nmap <leader>gr :Gread<cr>
 nmap <leader>gbf :Gblame<cr>
 nmap <leader>gbb v :Gblame<cr>
 nmap <leader>gm :Gmerge
+nmap <leader>gf :GFiles<cr>
+vmap <silent> u <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
 " rhubarb
 nmap <leader>ghb :Gbrowse<cr>
 " coc-git
@@ -708,6 +675,7 @@ let g:coc_global_extensions = [
             \ 'coc-css',
             \ 'coc-dictionary',
             \ 'coc-emmet',
+            \ 'coc-emoji',
             \ 'coc-eslint',
             \ 'coc-explorer',
             \ 'coc-git',
@@ -719,17 +687,26 @@ let g:coc_global_extensions = [
             \ 'coc-pairs', 
             \ 'coc-phpls',
             \ 'coc-prettier',
+            \ 'coc-pyright',
             \ 'coc-python',
             \ 'coc-r-lsp',
+            \ 'coc-sh',
+            \ 'coc-smartf',
             \ 'coc-snippets',
+            \ 'coc-styled-components',
+            \ 'coc-syntax',
+            \ 'coc-tag',
             \ 'coc-terminal',
             \ 'coc-texlab', 
             \ 'coc-todolist',
             \ 'coc-tsserver',
+            \ 'coc-tslint-plugin',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
             \ 'coc-vimtex',
-            \ 'coc-yank'
+            \ 'coc-word',
+            \ 'coc-yank',
+            \ 'coc-yaml'
             \ ]
 
 " if hidden is not set, TextEdit might fail.
@@ -744,10 +721,11 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
+"""" coc keymaps
 nmap <space>ue :CocCommand extensions.forceUpdateAll<CR>
-" Use `(g` and `)g` to navigate diagnostics
-nmap <silent> (g <Plug>(coc-diagnostic-prev)
-nmap <silent> )g <Plug>(coc-diagnostic-next)
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -757,6 +735,8 @@ nmap <silent> gr <Plug>(coc-references)
 "
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" coc-explorer
+nmap <space>e :CocCommand explorer<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -770,7 +750,7 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <space>rn <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <space>f  <Plug>(coc-format-selected)
@@ -821,13 +801,19 @@ command! -nargs=0 Sort   :call CocAction('runCommand', 'editor.action.organizeIm
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Using CocList
+" CocList, coc-lists, Lists
+" Search buffers
+nnoremap <silent> <space>lb  :<C-u>CocList buffers<cr>
+" Show commands
+nnoremap <silent> <space>lc  :<C-u>CocList commands<cr>
 " Show all diagnostics
 nnoremap <silent> <space>ld  :<C-u>CocList diagnostics<cr>
 " Manage extensions
 nnoremap <silent> <space>le  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>lc  :<C-u>CocList commands<cr>
+" Search files
+nnoremap <silent> <space>lf  :<C-u>CocList files<cr>
+" Search most recently used (mru)
+nnoremap <silent> <space>lm  :<C-u>CocList mru<cr>
 " Find symbol of current document
 nnoremap <silent> <space>lo  :<C-u>CocList outline<cr>
 " Search sessions
@@ -840,6 +826,12 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>h  :<C-u>CocListResume<CR>
+" Generate tags for project in cwd
+nnoremap <silent> <space>gt  :<C-u>CocCommand tags.generate<CR>
+" save session
+nnoremap <silent> <space>ss  :<C-u>CocCommand session.save<CR>
+" save load
+nnoremap <silent> <space>sl  :<C-u>CocCommand session.save<CR>
 
 "" coc-snippet
 
@@ -873,6 +865,7 @@ endfunction
 
 " python, coc-python
 nmap <space>pi :CocCommand python.setInterpreter<CR>
+nmap <space>pl :CocCommand python.runLinting<CR>
 autocmd BufWritePre *.py :%s/\s\+$//e " trim trailing spaces
 
 " Coc-Calc, coc-calc
@@ -896,3 +889,19 @@ nnoremap <space>ltd :CocList todolist<CR>
 nmap <space>tt <Plug>(coc-terminal-toggle)
 nmap <space>tr :CocCommand terminal.REPL<CR>
 nmap <space>tq :CocCommand terminal.Destroy<CR>
+
+" coc-smartf
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+nmap ; <Plug>(coc-smartf-repeat)
+nmap , <Plug>(coc-smartf-repeat-opposite)
+
+augroup Smartf
+  autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
+  autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
+augroup end
+
+" vue-language-server
+" let g:LanguageClient_serverCommands = {
+"     \ 'vue': ['vls']
+"     \ }

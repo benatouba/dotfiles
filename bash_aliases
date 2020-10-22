@@ -1,12 +1,15 @@
 if [ $USER = "ben" ] 
 then
-    alias vim="~/.programs/nvim.appimage"
-    alias nvim="~/.programs/nvim.appimage"
-    alias ovim="~/.programs/onivim2.appimage"
+    # alias vim="~/.programs/nvim.appimage"
+    alias vim="nvim"
+    alias oni2="~/.programs/onivim2.appimage"
     alias up="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean && sudo apt autoclean"
-    alias upconda="conda update -n base conda && conda update -n neovim3 --file ~/.dotfiles/conda_neovim3.yaml"
-    alias upvim="vim +PlugUpgrade +CocUpdate +PlugUpdate +UpdateRemotePlugins"
-    alias upall="up && upconda && upvim"
+    alias upConda="upCondaBaseEnv && upNeovim3Env && upDashboardsEnv"
+    alias upVim="vim +PlugUpgrade +CocUpdate +PlugUpdate +UpdateRemotePlugins"
+    alias upCondaBaseEnv="conda update -n base python"
+    alias upNeovim3Env="conda update -n neovim3 --file ~/.dotfiles/conda_neovim3.yaml"
+    alias upDashboardsEnv="conda update -n dashboards --file ~/.dotfiles/conda_dashboards.yaml"
+    alias upAll="up && upConda && upVim"
     alias rambox="/home/ben/.programs/rambox/rambox-0.7.3.Appimage"
     alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
     alias watchman_reset="watchman watch-del-all && watchman shutdown-server"
@@ -26,3 +29,4 @@ if [ $USER = "schmidt" ]; then
 fi
 
 alias isntall="install"
+alias source_bashrc="source ~/.bashrc"
