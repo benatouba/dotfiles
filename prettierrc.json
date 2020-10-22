@@ -1,0 +1,21 @@
+{
+  "overrides": [
+    {
+      "files": "*.css",
+      "options": {
+        "parser": "css"
+      }
+    }
+  ],
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "endOfLine": "auto",
+  "proseWrap": "always",
+  "printWidth": 120,
+  "trailingComma": "es5",
+  "tabs": false,
+  "tabWidth": 4,
+  "semi": false,
+  "singleQuote": true,
+  "vueIndentScriptAndStyle": false
+}

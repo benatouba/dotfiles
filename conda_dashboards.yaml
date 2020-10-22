@@ -1,0 +1,10 @@
+dashboards
+panel
+holoviews
+param
+hvplot
+geoviews
+datashader
+colorcet
+xarray
+netcdf4
