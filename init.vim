@@ -1,18 +1,35 @@
+" benatouba (n)vim config
+" heavily inspired by:
 " Fisa-nvim-config
 " http://nvim.fisadev.com
-" version: 10.0
+" version: 12.0.1
+
+" Some variables 
+set encoding=utf-8
+let using_neovim = has('nvim')
+let using_vim = !using_neovim
 
 " ============================================================================
 " Vim-plug initialization
 " Avoid modify this section, unless you are very sure of what you are doing
 
 let vim_plug_just_installed = 0
-let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+if using_neovim
+    let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+else
+    let vim_plug_path = expand('~/.vim/autoload/plug.vim')
+endif
+
 if !filereadable(vim_plug_path)
     echo "Installing Vim-plug..."
     echo ""
-    silent !mkdir -p ~/.config/nvim/autoload
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    if using_neovim
+        silent !mkdir -p ~/.config/nvim/autoload
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    else
+        silent !mkdir -p ~/.vim/autoload
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    endif
     let vim_plug_just_installed = 1
 endif
 
@@ -27,7 +44,11 @@ endif
 
 " this needs to be here, so vim-plug knows we are declaring the plugins we
 " want to use
-call plug#begin('~/.config/nvim/plugged')
+if using_neovim
+    call plug#begin('~/.config/nvim/plugged')
+else
+    call plug#begin("~/.vim/plugged")
+endif
 
 " Aesthetics - Main
 Plug 'vim-airline/vim-airline'
@@ -37,7 +58,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/seoul256.vim'
 " Plug 'junegunn/vim-journal'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'chriskempson/base16-vim'
 
 " Aethetics - themes
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
@@ -49,13 +69,18 @@ Plug 'KeitaNakamura/neodark.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'mhartington/oceanic-next'
-Plug 'morhetz/gruvbox'
 Plug 'neg-serg/neg'
 Plug 'nightsense/forgotten'
 Plug 'rhysd/vim-color-spring-night'
 Plug 'sjl/badwolf'
 Plug 'tomasr/molokai'
 Plug 'zaki/zazen'
+Plug 'chriskempson/base16-vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'colepeters/spacemacs-theme.vim'
 
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
@@ -171,6 +196,12 @@ let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
 " Vim settings and mappings
 
 let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark = 'hard'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
 
@@ -330,12 +361,13 @@ nmap <leader>fl :Lines<CR>
 " commands finder mapping
 nmap <leader>fc :Commands<CR>
 
-augroup fzfbindings
-  autocmd! fzfbindings
-  autocmd FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler | unmap! <ESC>
-  autocmd FileType fzf map <buffer> <silent> <ESC> <ESC>:bd!<CR>
-augroup end
+let g:fzf_layout = {'down': '40%'}
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+if using_neovim && !exists('g:fzf_layout')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
 
 " to be able to call CtrlP with default search text
 function! CtrlPWithSearchText(search_text, ctrlp_command_end)
@@ -353,21 +385,10 @@ nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
 
 " Jedi-vim ------------------------------
 
-" " Disable autocompletion (using deoplete instead)
+" Disable autocompletion (using deoplete instead)
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0           " no auto vim configuration
 let g:jedi#auto_initialization = 0
-
-" fzf.vim ------------------------------
-
-
-let g:fzf_layout = {'down': '40%'}
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-if has('nvim') && !exists('g:fzf_layout')
-  autocmd! FileType fzf
-  autocmd  FileType fzf set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-endif
 
 " Autoclose ------------------------------
 

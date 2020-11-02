@@ -121,5 +121,5 @@
 	"todo-tree.tree.showScanModeButton": false,
 	"prettier.arrowParens": "avoid",
 	"php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-	"php-cs-fixer.lastDownload": 1602760782672
+	"php-cs-fixer.lastDownload": 1603790525757
 }
