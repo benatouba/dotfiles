@@ -5,24 +5,39 @@
     ~/.bashrc: bashrc
     ~/.bash_logout: bash_logout
     ~/.bash_aliases: bash_aliases
-    ~/.gitconfig: gitconfig
-    ~/.gitignore: gitignore
+    ~/.zshrc: zshrc
+    ~/.zsh: zsh
+    ~/.oh-my-zsh: oh-my-zsh
+    ~/.oh-my-fish: oh-my-fish
+    ~/.tmux.conf: tmux.conf
+
     ~/.ssh/config:
         path: ssh/config
         create: true
-    ~/.zshrc: zshrc
     ~/.Xresources: Xresources
-    ~/.config/nvim/init.vim: init.vim
-    ~/.config/nvim/coc-settings.json: coc-settings.json
-    ~/.config/Code/User/settings.json: coc-settings.json
+    ~/.xsession: xsession
+
+    ~/.gitconfig: gitconfig
+    ~/.gitignore: gitignore
+    ~/.gitmodules: gitmodules
     ~/.git_template/hooks/: 
         glob: true
         path: git_template/hooks/*
         create: true
         force: true
+
+    ~/.watchmanconfig: watchmanconfig
+    ~/.eslintrc.json: eslintrc.json
+    ~/.prettierrc.json: prettierrc.json
+    ~/.alacritty.yml: alacritty.yml
+    ~/.config/gtk-3.0/settings.ini: gtk-3.0/settings.ini
+    ~/.gtkrc-2.0: gtkrc-2.0
+    ~/.i3: i3
     ~/.vim/sessions: 
         glob: true
         path: vim/sessions/*
         create: true
         force: true
-    ~/.watchmanconfig: watchmanconfig
+    ~/.config/nvim/init.vim: init.vim
+    ~/.config/nvim/coc-settings.json: coc-settings.json
+    ~/.config/Code/User/settings.json: coc-settings.json

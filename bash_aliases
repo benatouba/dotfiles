@@ -28,5 +28,6 @@ if [ $USER = "schmidt" ]; then
     alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 fi
 
+alias fd="fdfind"
 alias isntall="install"
 alias source_bashrc="source ~/.bashrc"

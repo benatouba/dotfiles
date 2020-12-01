@@ -12,3 +12,4 @@ bk/
 **/*cache*
 .vscode
 **/htmlcov*
+**/.tmuxinator.yml

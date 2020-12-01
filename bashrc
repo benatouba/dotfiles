@@ -8,11 +8,14 @@ if [ -f ~/.bashrc_local ]; then
 fi
 
 # set visual and editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 # add to path
 export PATH="/opt/WebDriver/bin:$PATH:/var/lib/gems/2.7.0"
+
+#XDG
+export XDG_CONFIG_HOME="$HOME/.config/"
 
 # If not running interactively, don't do anything
 case $- in
@@ -138,6 +141,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 base16_gruvbox-dark-soft
+# FZF colors
+source ~/.config/base16-fzf/bash/base16-${BASE16_THEME}.config
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -155,3 +160,7 @@ unset __conda_setup
 conda activate
 unset HOST
 # <<< conda initialize <<<
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -4,6 +4,11 @@
 " http://nvim.fisadev.com
 " version: 12.0.1
 
+if v:progname == 'vi'
+  set noloadplugins
+  set nocompatible
+endif
+
 " Some variables 
 set encoding=utf-8
 let using_neovim = has('nvim')
@@ -82,6 +87,13 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'colepeters/spacemacs-theme.vim'
 
+" Maximize pane toggle
+Plug 'szw/vim-maximizer'
+" view man pages and grep from them
+Plug 'vim-utils/vim-man' " TODO: Learn and test
+
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
 " Override configs by directory
@@ -90,21 +102,22 @@ Plug 'arielrossanigo/dir-configs-override.vim'
 Plug 'scrooloose/nerdcommenter'
 " easier terminal Commands
 Plug 'kassio/neoterm'
-" Class/module browser
-Plug 'majutsushi/tagbar'
 " Search results counter
 Plug 'vim-scripts/IndexedSearch'
 " Code and files fuzzy finder
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 " Extension to ctrlp, for fuzzy command finder
 Plug 'fisadev/vim-ctrlp-cmdpalette'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'stsewd/fzf-checkout.vim' " TODO: Learn and test 
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
 " Async autocompletion
 " Plug 'Shougo/echodoc.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" View and search LSP symbols and tags
+Plug 'liuchengxu/vista.vim'
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 " Testing
@@ -124,7 +137,7 @@ Plug 'sheerun/vim-polyglot'
 " Paint css colors with the real color
 Plug 'lilydjwg/colorizer'
 " Highlight matching html tags
-" Plug 'valloric/MatchTagAlways', {'for': 'html'}
+Plug 'valloric/MatchTagAlways', {'for': 'html'}
 " Generate html in a simple way
 " Plug 'mattn/emmet-vim', {'for': 'html'}
 " Git integration
@@ -133,14 +146,14 @@ Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'sodapopcan/vim-twiggy'
 " TODO: Switch to vim-gitgutter???
 Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
+" switch values (e.g. true/false)
+Plug 'AndrewRadev/switch.vim'
 " Surround
 Plug 'tpope/vim-surround'
 Plug 'andymass/vim-matchup'
 " Session
-" Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 Plug 'mhinz/vim-startify'
-" Yank history navigation
-Plug 'vim-scripts/YankRing.vim'
 " For R, RScript, Rscript, r, rscript
 Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
 " Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
@@ -164,6 +177,11 @@ Plug 'puremourning/vimspector'
 " support for --remote and 'friends'
 Plug 'mhinz/neovim-remote'
 Plug 'tpope/vim-dispatch'
+
+" telescope requirements...
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
@@ -196,17 +214,17 @@ let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
 " Vim settings and mappings
 
 let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_contrast_dark = 'medium'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 let g:gruvbox_invert_selection='0'
-colorscheme gruvbox
-let g:airline_theme='gruvbox'
+colorscheme gruvbox-material
+let g:airline_theme='gruvbox_material'
 
 let mapleader=","                           " set Mapleader
-let maplocalleader="-"                           " set Maplocalleader
+" let maplocalleader="-"                           " set Maplocalleader
 
 " if has('mouse')
 "     set mouse=a
@@ -245,6 +263,8 @@ set hlsearch                                " highlight search results
 set incsearch                               " set incremental search, like modern browsers
 set noerrorbells                            " turn off error sound notification
 set visualbell                              " visual error notification
+set background=dark
+set t_Co=256
 "
 " set spellchecking
 autocmd BufRead,BufNewFile *.md *.txt *.tex setlocal spell
@@ -272,13 +292,16 @@ nnoremap  <leader>Y  "+yg_
 nnoremap  <leader>y  "+y
 
 " Paste from clipboard
-nnoremap <leader>p "+p
-nnoremap <leader>P "+P
-vnoremap <leader>p "+p
-vnoremap <leader>P "+P
+" nnoremap <leader>p "+p
+" nnoremap <leader>P "+P
+" vnoremap <leader>p "+p
+" vnoremap <leader>P "+P
 
 " edit vimrc/zshrc and load vimrc bindings
 nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>ef :e $VIMRUNTIME/ftdetect/mine.vim<CR>
+nnoremap <leader>et :e ~/.tmux.conf.local<CR>
+nnoremap <leader>ed :e ~/<CR>
 nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
 nnoremap <leader>eg :e ~/.gitconfig<CR>
 nnoremap <leader>ei :e ~/.gitignore<CR>
@@ -305,16 +328,16 @@ au BufRead,BufNewFile bash* set filetype=bash
 " ============================================================================
 " Navigation
 
-" Alt-<key> split movement in all modes (no terminal)
-noremap <A-h> <Esc>:tabn<CR>
-noremap <A-j> <Esc>:bnext<CR>
-noremap <A-k> <Esc>:bprev<CR>
-noremap <A-l> <Esc>:tabp<CR>
-" Alt-<key> split movement in terminal mode
-tnoremap <A-h> <c-\><c-n>:tabn<CR>
-tnoremap <A-j> <c-\><c-n>:bnext<CR>
-tnoremap <A-k> <c-\><c-n>:bprev<CR>
-tnoremap <A-l> <c-\><c-n>:tabp<CR>
+" Ctrl-<key> split movement in all modes (no terminal)
+noremap <C-j> <Esc>:tabn<CR>
+noremap <C-l> <Esc>:bnext<CR>
+noremap <C-h> <Esc>:bprev<CR>
+noremap <C-k> <Esc>:tabp<CR>
+" Ctrl-<key> split movement in terminal mode
+tnoremap <C-j> <c-\><c-n>:tabn<CR>
+tnoremap <C-l> <c-\><c-n>:bnext<CR>
+tnoremap <C-h> <c-\><c-n>:bprev<CR>
+tnoremap <C-k> <c-\><c-n>:tabp<CR>
 
 " terminal mappings
 tmap <Esc> <C-\><C-n>
@@ -323,33 +346,44 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
 " tab navigation mappings
-map tt :tabnew<CR>
-map <M-Right> :tabn<CR>
-imap <M-Right> <ESC>:tabn<CR>
-map <M-Left> :tabp<CR>
-imap <M-Left> <ESC>:tabp<CR>
+map <C-n> :tabnew<CR>
+map <C-Right> :tabn<CR>
+map <C-Right> <ESC>:tabn<CR>
+map <C-Left> :tabp<CR>
+map <C-Left> <ESC>:tabp<CR>
 
 " Session options and navigation
 "
 let g:startify_session_dir = '~/.dotfiles/vim/sessions/'
 
+" vim-maximizer
+nnoremap <silent><leader>m :MaximizerToggle<CR>
+vnoremap <silent><leader>m :MaximizerToggle<CR>gv
 " ============================================================================
 " Plugins settings and mappings
 
 " Rainbow parentheses -----------------------------
 autocmd VimEnter * RainbowParentheses
-" Tagbar -----------------------------
-map <F4> :TagbarToggle<CR>                  " toggle tagbar display
-let g:tagbar_autofocus = 1                  " autofocus on tagbar open
+
+" Switch ------------------------------
+let g:switch_mapping="<F8>"
+
+nnoremap <leader>- :call switch#Switch()<CR>
 
 " Tasklist ------------------------------
 " show pending tasks list
 map <F3> :TaskList<CR>
 
 " Fzf ------------------------------
-
+nnoremap <C-p> :Files<CR>
 " file finder mapping
 nmap <leader>ff :Files<CR>
+"  git file finder mapping
+nmap <leader>fg :GFiles<CR>
+" Riggrep
+nmap <leader>fr :Rg<CR>
+" find snippets (UltiSnips)
+nmap <leader>fs :Snippets<CR>
 " tags (symbols) in current file finder mapping
 nmap <leader>fT :BTag<CR>
 " tags (symbols) in all files finder mapping
@@ -361,8 +395,48 @@ nmap <leader>fl :Lines<CR>
 " commands finder mapping
 nmap <leader>fc :Commands<CR>
 
-let g:fzf_layout = {'down': '40%'}
-" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+if exists('$TMUX')
+  " let g:fzf_layout = { 'tmux': '-p90%,60%' }
+  let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+endif
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let $FZF_DEFAULT_OPTS='--reverse'
+let g:fzf_branch_actions = {
+      \ 'rebase': {
+      \   'prompt': 'Rebase> ',
+      \   'execute': 'echo system("{git} rebase {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-r',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \ 'track': {
+      \   'prompt': 'Track> ',
+      \   'execute': 'echo system("{git} checkout --track {branch}")',
+      \   'multiple': v:false,
+      \   'keymap': 'ctrl-t',
+      \   'required': ['branch'],
+      \   'confirm': v:false,
+      \ },
+      \}
+
 if using_neovim && !exists('g:fzf_layout')
   autocmd! FileType fzf
   autocmd  FileType fzf set laststatus=0 noshowmode noruler
@@ -434,11 +508,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " nmap ,t :NERDTreeFind<CR>
 
 "=====================================================
-"" FZF
-
-nnoremap <c-p> :FZF<CR>
-
-"=====================================================
 "" NERDComment Settings
 
 let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default
@@ -446,7 +515,7 @@ let g:NERDCompactSexyComs = 1                   " Use compact syntax for prettif
 let g:NERDDefaultAlign = 'left'                 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDAltDelims_java = 1                    " Set a language to use its alternate delimiters by default
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }   " Add your own custom formats or override the defaults
-let g:NERDCommentEmptyLines = 0                 " Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1                 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1            " Enable trimming of trailing whitespace when uncommenting
 
 "=====================================================
@@ -606,30 +675,34 @@ endfunction
 
 " switch aesthetics
 " nmap <leader>g :Goyo<CR>
-nmap <leader>ee :Colors<CR>
-nmap <leader>ea :AirlineTheme
-nmap <leader>e1 :call ColorSolarized_low()<CR>
-nmap <leader>e2 :call ColorSeoul256()<CR>
-nmap <leader>e3 :call ColorTender()<CR>
-nmap <leader>e4 :call ColorZazen()<CR>
-nmap <leader>e5 :call ColorBadwolf()<CR>
-nmap <leader>e6 :call ColorOceanicNext()<CR>
-nmap <leader>e7 :call ColorOnedark()<CR>
-nmap <leader>e8 :call ColorPalenight()<CR>
-nmap <leader>e9 :call ColorNeodark()<CR>
-nmap <leader>e0 :call ColorGruvbox()<CR>
-nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR>
+nmap <leader>fct :Colors<CR>
+nmap <leader>fat :AirlineTheme
+nmap <leader>sct1 :call ColorSolarized_low()<CR>
+nmap <leader>sct2 :call ColorSeoul256()<CR>
+nmap <leader>sct3 :call ColorTender()<CR>
+nmap <leader>sct4 :call ColorZazen()<CR>
+nmap <leader>sct5 :call ColorBadwolf()<CR>
+nmap <leader>sct6 :call ColorOceanicNext()<CR>
+nmap <leader>sct7 :call ColorOnedark()<CR>
+nmap <leader>sct8 :call ColorPalenight()<CR>
+nmap <leader>sct9 :call ColorNeodark()<CR>
+nmap <leader>sct0 :call ColorGruvbox()<CR>
+nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR> 
+nmap <leader>ri :w<CR> :so ~/.config/nvim/init.vim<CR> :PlugInstall <CR>
+nmap <leader>ru :w<CR> :so ~/.config/nvim/init.vim<CR> :PlugClean <CR>
 nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
 nmap <leader>tw :call TrimWhitespace()<CR>
 
 "=====================================================
 "" vim-test, test
-let test#strategy = "dispatch"
-" let test#python#runner = 'pytest'
+let test#strategy = "neoterm"
+let test#python#runner = "pyunit"
+let test#neovim#term_position = "topleft"
+let g:test#preserve_screen = 1  " No clearing of screen when executing tests"
 
 nmap <silent> <leader>tn :TestNearest<CR>
 nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
 nmap <silent> <leader>tl :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
@@ -666,14 +739,14 @@ nmap <leader>gbf :Gblame<cr>
 nmap <leader>gbb v :Gblame<cr>
 nmap <leader>gm :Gmerge
 nmap <leader>gf :GFiles<cr>
-vmap <silent> u <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
+vmap <silent>gu <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
 " rhubarb
 nmap <leader>ghb :Gbrowse<cr>
 " coc-git
-nmap <leader>gj <Plug>(coc-git-prevchunk)
-nmap <leader>gk <Plug>(coc-git-nextchunk)
-nmap <leader>gi <Plug>(coc-git-chunkinfo)
-nmap <leader>gu :CocCommand git.chunkUndo<cr>
+nmap gk <Plug>(coc-git-prevchunk)
+nmap gj <Plug>(coc-git-nextchunk)
+nmap gi <Plug>(coc-git-chunkinfo)
+nmap gu :CocCommand git.chunkUndo<cr>
 " Twiggy
 nmap <leader>gt :Twiggy<CR>
 " Signify
@@ -689,10 +762,12 @@ highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
 
 "=====================================================
 "" Coc, coc
+let g:coc_node_path = "/usr/bin/node"
 
 let g:coc_global_extensions = [
             \ 'coc-bibtex',
             \ 'coc-calc',
+            \ 'coc-clangd',
             \ 'coc-css',
             \ 'coc-dictionary',
             \ 'coc-emmet',
@@ -705,6 +780,7 @@ let g:coc_global_extensions = [
             \ 'coc-html',
             \ 'coc-json',
             \ 'coc-lists',
+            \ 'coc-marketplace',
             \ 'coc-pairs', 
             \ 'coc-phpls',
             \ 'coc-prettier',
@@ -730,23 +806,18 @@ let g:coc_global_extensions = [
             \ 'coc-yaml'
             \ ]
 
-" if hidden is not set, TextEdit might fail.
-set hidden
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-
-" always show signcolumns
-set signcolumn=yes
+set hidden              " if hidden is not set, TextEdit might fail.
+set nobackup            " Some servers have issues with backup files, see #649
+set nowritebackup
+set updatetime=300      " You will have bad experience for diagnostic messages when it's default 4000.
+set shortmess+=c        " don't give |ins-completion-menu| messages.
+set signcolumn=yes      " always show signcolumns
 
 """" coc keymaps
-nmap <space>ue :CocCommand extensions.forceUpdateAll<CR>
+nmap <leader>ue :CocCommand extensions.forceUpdateAll<CR>
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> dk <Plug>(coc-diagnostic-prev)
+nmap <silent> dj <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -757,7 +828,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " coc-explorer
-nmap <space>e :CocCommand explorer<CR>
+nmap <leader>e :CocCommand explorer<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -774,8 +845,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <F2> <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <space>f  <Plug>(coc-format-selected)
-nmap <space>f  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
+vmap <leader>f  <Plug>(coc-format-selected)
+nnoremap <leader>f :<C-u>Format <cr>
 
 augroup mygroup
   autocmd!
@@ -786,8 +858,8 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <space>a  <Plug>(coc-codeaction-selected)
-nmap <space>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <space>ac  <Plug>(coc-codeaction)
@@ -855,21 +927,11 @@ nnoremap <silent> <space>ss  :<C-u>CocCommand session.save<CR>
 nnoremap <silent> <space>sl  :<C-u>CocCommand session.save<CR>
 
 "" coc-snippet
-
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+imap <C-l> <Plug>(coc-snippets-expand)          " Use <C-l> for trigger snippet expand.
+vmap <C-j> <Plug>(coc-snippets-select)          " Use <C-j> for select text for visual placeholder of snippet.
+let g:coc_snippet_next = '<c-j>'                " Use <C-j> for jump to next placeholder, it's default of coc.nvim 
+let g:coc_snippet_prev = '<c-k>'                " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+imap <C-j> <Plug>(coc-snippets-expand-jump)     " Use <C-j> for both expand and jump (make expand higher priority.)
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
@@ -883,6 +945,7 @@ function! s:check_back_space() abort
 endfunction
 
 " let g:coc_snippet_next = '<tab>'
+let g:python_highlight_all = 1
 
 " python, coc-python
 nmap <space>pi :CocCommand python.setInterpreter<CR>
@@ -898,11 +961,11 @@ map <space>cr <Plug>(coc-calc-result-replace)
 
 " Coc-todolist, coc-todolist
 "
-nnoremap <space>tc :CocCommand todolist.create<CR>
-nnoremap <space>tu :CocCommand todolist.upload<CR>
-nnoremap <space>td :CocCommand todolist.download<CR>
-nnoremap <space>te :CocCommand todolist.export<CR>
-nnoremap <space>t0 :CocCommand todolist.clearNotice<CR>
+nnoremap <space>dtc :CocCommand todolist.create<CR>
+nnoremap <space>tdu :CocCommand todolist.upload<CR>
+nnoremap <space>tdd :CocCommand todolist.download<CR>
+nnoremap <space>tde :CocCommand todolist.export<CR>
+nnoremap <space>td0 :CocCommand todolist.clearNotice<CR>
 nnoremap <space>ltd :CocList todolist<CR>
 
 " coc-terminal
