@@ -1,7 +1,9 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-64
+autoflake
 black
+coverage
 flake8
 ipython
 isort
@@ -9,7 +11,6 @@ jedi
 mccabe
 mypy
 pip
-pipenv
 poetry
 pycodestyle
 pydocstyle
@@ -20,3 +21,4 @@ pynvim
 python
 rope
 virtualenv
+yapf

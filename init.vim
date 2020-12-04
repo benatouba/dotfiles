@@ -30,7 +30,7 @@ if !filereadable(vim_plug_path)
     echo ""
     if using_neovim
         silent !mkdir -p ~/.config/nvim/autoload
-        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        silent !curl -fLo ~/nguag.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     else
         silent !mkdir -p ~/.vim/autoload
         silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -85,6 +85,8 @@ Plug 'flazz/vim-colorschemes'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
+Plug 'tjdevries/colorbuddy.nvim'
+Plug 'tjdevries/gruvbuddy.nvim'
 Plug 'colepeters/spacemacs-theme.vim'
 
 " Maximize pane toggle
@@ -94,6 +96,11 @@ Plug 'vim-utils/vim-man' " TODO: Learn and test
 
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
+" Firenvim neovim in the browser
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Nvim  Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/playground'
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
 " Override configs by directory
@@ -155,7 +162,7 @@ Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-obsession'
 Plug 'mhinz/vim-startify'
 " For R, RScript, Rscript, r, rscript
-Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
+" Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
 " Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
 " Latex, latex, Latex
 " Plug 'donRaphaco/neotex', {'for': 'tex'}
@@ -222,6 +229,7 @@ endif
 let g:gruvbox_invert_selection='0'
 colorscheme gruvbox-material
 let g:airline_theme='gruvbox_material'
+lua require("colorbuddy").colorscheme("gruvbuddy")
 
 let mapleader=","                           " set Mapleader
 " let maplocalleader="-"                           " set Maplocalleader
@@ -280,7 +288,7 @@ set shell=/bin/bash                         " set shell used for commands (neoma
 " if (has("termguicolors"))
 set termguicolors                           " set colorspace (important for most colorschemes)
 " endif
-" let base16colorspace=256                    " set base16 colorspace (importatn for base16 colorschemes)
+let base16colorspace=256                    " set base16 colorspace (importatn for base16 colorschemes)
 syntax enable
 
 nnoremap <silent> // :noh<CR>               " clear search results
@@ -361,6 +369,26 @@ nnoremap <silent><leader>m :MaximizerToggle<CR>
 vnoremap <silent><leader>m :MaximizerToggle<CR>gv
 " ============================================================================
 " Plugins settings and mappings
+"
+" Firenvim -----------------------------
+let g:firenvim_config = {
+    \ 'globalSettings': {
+        \ 'alt': 'all',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'cmdline': 'neovim',
+            \ 'priority': 0,
+            \ 'selector': 'textarea',
+            \ 'takeover': 'always',
+        \ },
+    \ }
+\ }
+let fc = g:firenvim_config['localSettings']
+let fc['https?://www.overleaf.com/'] = { 'takeover': 'never', 'priority': 1 }
+
+nnoremap <Esc><Esc> :call firenvim#focus_page()<CR>
+nnoremap <C-z> :call firenvim#hide_frame()<CR>
 
 " Rainbow parentheses -----------------------------
 autocmd VimEnter * RainbowParentheses
@@ -778,6 +806,7 @@ let g:coc_global_extensions = [
             \ 'coc-gitignore',
             \ 'coc-highlight',
             \ 'coc-html',
+            \ 'coc-jedi',
             \ 'coc-json',
             \ 'coc-lists',
             \ 'coc-marketplace',
@@ -785,7 +814,6 @@ let g:coc_global_extensions = [
             \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-pyright',
-            \ 'coc-python',
             \ 'coc-r-lsp',
             \ 'coc-sh',
             \ 'coc-smartf',
@@ -984,8 +1012,3 @@ augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 augroup end
-
-" vue-language-server
-" let g:LanguageClient_serverCommands = {
-"     \ 'vue': ['vls']
-"     \ }

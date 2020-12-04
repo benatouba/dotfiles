@@ -13,3 +13,4 @@ bk/
 .vscode
 **/htmlcov*
 **/.tmuxinator.yml
+**/.vimspector.*

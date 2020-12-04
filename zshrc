@@ -8,7 +8,7 @@ fi
 ZLE_RPROMPT_INDENT=0
 POWERLEVEL9K_LEGACY_ICON_SPACING=true
 
-if [ "$TMUX" = "" ]; then tmux; fi
+# if [ "$TMUX" = "" ]; then tmux; fi
 
 # User Settings
 source ~/.zsh/export.zsh
@@ -141,3 +141,4 @@ unset __conda_setup
 conda activate
 unset HOST
 # <<< conda initialize <<<
+#

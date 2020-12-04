@@ -31,3 +31,4 @@ fi
 alias fd="fdfind"
 alias isntall="install"
 alias source_bashrc="source ~/.bashrc"
+alias chtsh="~/.programs/cht.sh/cht.sh"

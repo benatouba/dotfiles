@@ -58,7 +58,6 @@
 	"prettier.tabWidth": 4,
 	"prettier.trailingComma": "es5",
     "python.insidersChannel": "off",
-    "python.jediEnabled": false,
 	"python.languageServer": "Pylance",
 	"python.linting.enabled": true,
 	"python.linting.flake8Enabled": true,
@@ -66,15 +65,15 @@
 	"python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
     "python.linting.lintOnSave": true,
 	"python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
-    "pyls.plugins.pycodestyle.maxLineLength": 120,
-	"python.formatting.provider": "black",
+	"python.formatting.provider": "yapf",
 	"python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
+    "python.formatting.yapfPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/yapf",
 	"python.formatting.blackArgs": ["--line-length", "120"],
 	"python.formatting.yapfArgs": ["--COLUMN_LIMIT", "120"],
 	"python.workspaceSymbols.ctagsPath": "${workspaceFolder}/.git/tags",
 	"python.workspaceSymbols.tagFilePath": "${workspaceFolder}/.git/tags",
 	"python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
-	"r.lsp.path": "~/R/x86_64-pc-linux-gnu-library/3.6/languageserver/R/languageserver",
+	"r.lsp.path": "/usr/local/lib/R/site-library/languageserver/R/languageserver",
 	"session.saveOnVimLeave": true,
 	"session.directory": "~/.dotfiles/vim/sessions",
     "tsserver.enableJavascript": true,
@@ -134,6 +133,13 @@
 		"vs-kubernetes.draft-path.linux": "/home/ben/.vs-kubernetes/tools/draft/linux-amd64/draft",
 		"vs-kubernetes.kubectl-path.linux": "/home/ben/.vs-kubernetes/tools/kubectl/kubectl",
 		"vs-kubernetes.minikube-path.linux": "/home/ben/.vs-kubernetes/tools/minikube/linux-amd64/minikube"
-	}
-
+	},
+    "r.lsp.use_stdio": true,
+    "languageserver": {
+    "R": {
+        "command": "/usr/bin/R",
+        "args" : [ "--slave", "-e", "languageserver::run()"],
+        "filetypes" : ["r"]
+        }
+    }
 }
