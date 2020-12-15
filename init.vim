@@ -93,11 +93,13 @@ Plug 'colepeters/spacemacs-theme.vim'
 Plug 'szw/vim-maximizer'
 " view man pages and grep from them
 Plug 'vim-utils/vim-man' " TODO: Learn and test
+" cheatsheets on the fly
+Plug 'dbeniamine/cheat.sh-vim'
 
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 " Firenvim neovim in the browser
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " Nvim  Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-treesitter/playground'
@@ -136,9 +138,9 @@ Plug 'janko/vim-test'
 " Plug 'heavenshell/vim-pydocstring'
 Plug 'vim-scripts/django.vim'
 " Indent text object
-Plug 'michaeljsmith/vim-indent-object'
+" Plug 'michaeljsmith/vim-indent-object'
 " Indentation based movements
-Plug 'jeetsukumaran/vim-indentwise'
+" Plug 'jeetsukumaran/vim-indentwise'
 " Better language packs
 Plug 'sheerun/vim-polyglot'
 " Paint css colors with the real color
@@ -151,8 +153,8 @@ Plug 'valloric/MatchTagAlways', {'for': 'html'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'sodapopcan/vim-twiggy'
-" TODO: Switch to vim-gitgutter???
-Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
+" NOTE: provided by coc-git
+" Plug 'mhinz/vim-signify'  " diff icons on the side of the file lines
 " switch values (e.g. true/false)
 Plug 'AndrewRadev/switch.vim'
 " Surround
@@ -162,8 +164,7 @@ Plug 'andymass/vim-matchup'
 Plug 'tpope/vim-obsession'
 Plug 'mhinz/vim-startify'
 " For R, RScript, Rscript, r, rscript
-" Plug 'jalvesaq/Nvim-R', {'for': 'Rscript'} " R Console inside neovim
-" Plug 'gaalcaras/ncm-R', {'for': 'Rscript'} " R automatic code completion (RStudio style)
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable', 'for': 'Rscript'} " R Console inside neovim
 " Latex, latex, Latex
 " Plug 'donRaphaco/neotex', {'for': 'tex'}
 Plug 'lervag/vimtex', {'for': 'tex'}
@@ -216,12 +217,12 @@ source ~/.config/nvim/_machine_specific.vim
 " ============================================================================
 " provider paths
 
-let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
+" let g:perl_host_prog = '/home/ben/.programs/anaconda3/envs/neovim3/bin/perl'
 " ============================================================================
 " Vim settings and mappings
 
 let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark = 'medium'
+let g:gruvbox_contrast_dark = 'soft'
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -229,10 +230,10 @@ endif
 let g:gruvbox_invert_selection='0'
 colorscheme gruvbox-material
 let g:airline_theme='gruvbox_material'
-lua require("colorbuddy").colorscheme("gruvbuddy")
+" lua require("colorbuddy").colorscheme("gruvbuddy")
 
 let mapleader=","                           " set Mapleader
-" let maplocalleader="-"                           " set Maplocalleader
+let maplocalleader='\'                           " set Maplocalleader
 
 " if has('mouse')
 "     set mouse=a
@@ -244,19 +245,27 @@ set clipboard+=unnamedplus                  " use system clipboard
 set tags=./.git/tags,tags;                  " tag file path env
 
 " FIXME:
-set scrolloff=7                             " let 10 lines before/after cursor during scroll
+set scrolloff=4                             " let 10 lines before/after cursor during scroll
 set showmatch                               " shows matching part of bracket pairs (), [], {}
-
 " tabs and spaces handling
 set expandtab                               " use spaces for tab
 set tabstop=4                               " number of spaces of tab
 set softtabstop=4                           " number of spaces of tab in insert mode
 set shiftwidth=4                            " number of spaces of autoindent
-set expandtab                               " expand tabs into spaces
 set backspace=indent,eol,start              " make backspace behave in a sane manner
+" Show hidden characters, tabs, trailing whitespace
+set list
+set listchars=tab:→\ ,trail:·,nbsp:·
+" Different tab/space stops"
+augroup two_spaces_filetypes
+    autocmd!
+    autocmd FileType yaml,html,json,javascript,css,scss,vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+augroup END
+autocmd FileType make setlocal noexpandtab
+
+set autoread                                " Autoload file changes"
 set splitright                              " open split window on right side
 set splitbelow                              " open split window on right side
- 
 " set number relativenumber                   " turn hybrid line numbers on
 set nu rnu                                  " show line numbers
 " toggle relativenumber/number when window gains/looses focus
@@ -306,15 +315,15 @@ nnoremap  <leader>y  "+y
 " vnoremap <leader>P "+P
 
 " edit vimrc/zshrc and load vimrc bindings
-nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>ev :e ~/.dotfiles/init.vim<CR>
 nnoremap <leader>ef :e $VIMRUNTIME/ftdetect/mine.vim<CR>
-nnoremap <leader>et :e ~/.tmux.conf.local<CR>
-nnoremap <leader>ed :e ~/<CR>
+nnoremap <leader>et :e ~.dotfiles/tmux.conf.local<CR>
+nnoremap <leader>ed :e ~/
 nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
-nnoremap <leader>eg :e ~/.gitconfig<CR>
-nnoremap <leader>ei :e ~/.gitignore<CR>
-nnoremap <leader>eb :e ~/.bashrc<CR>
-nnoremap <leader>ec :CocConfig<CR>
+nnoremap <leader>eg :e ~/.dotfiles/gitconfig<CR>
+nnoremap <leader>ei :e ~/.dotfiles/gitignore<CR>
+nnoremap <leader>eb :e ~/.dotfiles/bashrc<CR>
+nnoremap <leader>ec :e ~/.dotfiles/coc-settings.json<CR>
 nnoremap <leader>ch :checkhealth<CR>
 
 " Update Plugins
@@ -371,25 +380,25 @@ vnoremap <silent><leader>m :MaximizerToggle<CR>gv
 " Plugins settings and mappings
 "
 " Firenvim -----------------------------
-let g:firenvim_config = {
-    \ 'globalSettings': {
-        \ 'alt': 'all',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'cmdline': 'neovim',
-            \ 'priority': 0,
-            \ 'selector': 'textarea',
-            \ 'takeover': 'always',
-        \ },
-    \ }
-\ }
-let fc = g:firenvim_config['localSettings']
-let fc['https?://www.overleaf.com/'] = { 'takeover': 'never', 'priority': 1 }
-
-nnoremap <Esc><Esc> :call firenvim#focus_page()<CR>
-nnoremap <C-z> :call firenvim#hide_frame()<CR>
-
+" let g:firenvim_config = {
+"     \ 'globalSettings': {
+"         \ 'alt': 'all',
+"     \  },
+"     \ 'localSettings': {
+"         \ '.*': {
+"             \ 'cmdline': 'neovim',
+"             \ 'priority': 0,
+"             \ 'selector': 'textarea',
+"             \ 'takeover': 'always',
+"         \ },
+"     \ }
+" \ }
+" let fc = g:firenvim_config['localSettings']
+" let fc['https?://www.overleaf.com/'] = { 'takeover': 'never', 'priority': 1 }
+"
+" nnoremap <Esc><Esc> :call firenvim#focus_page()<CR>
+" nnoremap <C-z> :call firenvim#hide_frame()<CR>
+"
 " Rainbow parentheses -----------------------------
 autocmd VimEnter * RainbowParentheses
 
@@ -509,22 +518,11 @@ let g:yankring_history_dir = '~/.config/nvim/'
 " Airline ------------------------------
 
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#hunks#coc_git = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-" to use fancy symbols for airline, uncomment the following lines and use a
-" patched font (more info on docs/fancy_symbols.rst)
-" if !exists('g:airline_symbols')
-"     let g:airline_symbols = {}
-" endif
-" let g:airline_left_sep = '⮀'
-" let g:airline_left_alt_sep = '⮁'
-" let g:airline_right_sep = '⮂'
-" let g:airline_right_alt_sep = '⮃'
-" let g:airline_symbols.branch = '⭠'
-" let g:airline_symbols.readonly = '⭤'
-" let g:airline_symbols.linenr = '⭡'
 
 "=====================================================
 "" NERDTree settings
@@ -703,7 +701,7 @@ endfunction
 
 " switch aesthetics
 " nmap <leader>g :Goyo<CR>
-nmap <leader>fct :Colors<CR>
+nmap <leader>fcs :Colors<CR>
 nmap <leader>fat :AirlineTheme
 nmap <leader>sct1 :call ColorSolarized_low()<CR>
 nmap <leader>sct2 :call ColorSeoul256()<CR>
@@ -715,9 +713,9 @@ nmap <leader>sct7 :call ColorOnedark()<CR>
 nmap <leader>sct8 :call ColorPalenight()<CR>
 nmap <leader>sct9 :call ColorNeodark()<CR>
 nmap <leader>sct0 :call ColorGruvbox()<CR>
-nmap <leader>rv :w<CR> :so ~/.config/nvim/init.vim<CR> 
-nmap <leader>ri :w<CR> :so ~/.config/nvim/init.vim<CR> :PlugInstall <CR>
-nmap <leader>ru :w<CR> :so ~/.config/nvim/init.vim<CR> :PlugClean <CR>
+nmap <leader>rv :w<CR> :so ~/.dotfiles/init.vim<CR> 
+nmap <leader>ri :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugInstall <CR>
+nmap <leader>ru :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugClean <CR>
 nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
 nmap <leader>tw :call TrimWhitespace()<CR>
 
@@ -744,13 +742,13 @@ let g:neoterm_autoscroll=1
 let g:neoterm_keep_term_open=1
 let g:neoterm_term_per_tab=1
 " mappings to send stuff to REPL
-vmap <leader>x <Plug>(neoterm-repl-send)           
-nmap <leader>xx <Plug>(neoterm-repl-send-line)
-nmap <leader>xf gg<S-v>``G<Plug>(neoterm-repl-send)``
-xmap <leader>x <Plug>(neoterm-repl-send)
+vmap <localleader>ss <Plug>(neoterm-repl-send)           
+nmap <localleader>ll <Plug>(neoterm-repl-send-line)
+nmap <localleader>aa gg<S-v>``G<Plug>(neoterm-repl-send)``
+xmap <localleader>ss <Plug>(neoterm-repl-send)
 
 "=====================================================
-"" Neoterm
+"" nvim-r
 
 "=====================================================
 "" Git section
@@ -768,6 +766,11 @@ nmap <leader>gbb v :Gblame<cr>
 nmap <leader>gm :Gmerge
 nmap <leader>gf :GFiles<cr>
 vmap <silent>gu <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiff<CR>
+nnoremap gh :diffget //2<CR>
+nnoremap gl :diffget //3<CR>
+
 " rhubarb
 nmap <leader>ghb :Gbrowse<cr>
 " coc-git
@@ -856,7 +859,7 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " coc-explorer
-nmap <leader>e :CocCommand explorer<CR>
+nmap <space>e :CocCommand explorer<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
