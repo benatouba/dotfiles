@@ -14,3 +14,5 @@ bk/
 **/htmlcov*
 **/.tmuxinator.yml
 **/.vimspector.*
+**/poetry.lock
+**/pyproject.toml

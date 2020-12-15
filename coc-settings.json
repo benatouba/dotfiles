@@ -5,6 +5,7 @@
     "editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
+  "coc.preferences.formatOnType": true,
 	"editor.formatOnSave": true,
 	"editor.suggestSelection": "first",
     "emmet.showAbbreviationSuggestions": true,
@@ -35,6 +36,13 @@
 		"**/*.pyc": true,
 		"**/*.vim": true
 	},
+  "git.command": "/usr/bin/git",
+  "git.addGBlameToVirtualText": true,
+  "git.addedSign.text": "落",
+  "git.changedSign.text": "ﱴ",
+  "git.removedSign.text": "",
+  "git.topRemovedSign.hlGroup": "",
+  "git.changeRemovedSign.text": "",
 	"html.filetypes": ["html", "handlebars", "inc"],
 	"html.format.enable": true,
     "javascript.format.enabled": true,
@@ -76,8 +84,9 @@
 	"r.lsp.path": "/usr/local/lib/R/site-library/languageserver/R/languageserver",
 	"session.saveOnVimLeave": true,
 	"session.directory": "~/.dotfiles/vim/sessions",
-    "tsserver.enableJavascript": true,
-    "tsserver.formatOnType": true,
+  "smartf.timeout": 3000,
+  "tsserver.enableJavascript": true,
+  "tsserver.formatOnType": true,
 	"vetur.format.defaultFormatter.css": "prettier",
 	"vetur.format.defaultFormatter.html": "prettier",
 	"vetur.format.options.tabSize": 2,

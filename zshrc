@@ -84,7 +84,7 @@ export ZSH="/home/$USER/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( git tmux osx zsh-syntax-highlighting yarn npm docker fzf fzf-docker fzf-tab zsh-autosuggestions ssh-agent bundler )
+plugins=( poetry git tmux osx zsh-syntax-highlighting yarn npm docker fzf fzf-docker fzf-tab zsh-autosuggestions ssh-agent bundler )
 # export FZF_DEFAULT_COMMAND='fdfind . -type f ! -path "*/\.git/*" ! -path "*/\node_modules/*" ! -path "*/\coverage/*" ! -path "*/\npm-packages-offline-cache/*"'
 # export FZF_CTRL_T_COMMAND='fdfind . -type f ! -path "*/\.git/*" ! -path "*/\node_modules/*" ! -path "*/\coverage/*" ! -path "*/\npm-packages-offline-cache/*"'
 # export FZF_DEFAULT_OPTS="-i --preview 'bat --style=numbers --color=always {}'"
@@ -138,7 +138,15 @@ else
     fi
 fi
 unset __conda_setup
-conda activate
-unset HOST
+# conda activate
+# unset HOST
 # <<< conda initialize <<<
 #
+fpath=(~/.programs/cht.sh/zsh.d/ $fpath)
+fpath+=~/.zfunc
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
+export PATH="/home/ben/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"

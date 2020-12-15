@@ -116,7 +116,7 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ "$SHELL" == "/bin/bash"]; then
+if [ "$SHELL" == "/bin/bash" ]; then
     # check the window size after each command and, if necessary,
     # update the values of LINES and COLUMNS.
     shopt -s checkwinsize
@@ -133,6 +133,8 @@ if [ "$SHELL" == "/bin/bash"]; then
     fi
 
     [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    # cht.sh tab completion
+    . ~/.programs/cht.sh/bash.d/cht.sh
 fi
 
 # initialize base16 shell aliases
@@ -166,3 +168,5 @@ unset HOST
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/perl5/perlbrew/etc/bashrc
