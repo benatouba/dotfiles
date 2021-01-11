@@ -9,7 +9,7 @@ if v:progname == 'vi'
   set nocompatible
 endif
 
-" Some variables 
+" Some variables
 set encoding=utf-8
 let using_neovim = has('nvim')
 let using_vim = !using_neovim
@@ -63,7 +63,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/seoul256.vim'
 " Plug 'junegunn/vim-journal'
 Plug 'junegunn/rainbow_parentheses.vim'
-
 " Aethetics - themes
 Plug 'chriskempson/tomorrow-theme', { 'rtp': 'vim' }
 Plug 'dracula/vim'
@@ -99,16 +98,18 @@ Plug 'dbeniamine/cheat.sh-vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 
 " Firenvim neovim in the browser
-" Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Plug 'glacambre/firenvim'v { 'do': { _ -> firenvim#install(0) } }
 " Nvim  Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+" Plug 'nvim-treesitter/playground'
 " Close buffers but keep splits
 Plug 'moll/vim-bbye'
 " Override configs by directory
 Plug 'arielrossanigo/dir-configs-override.vim'
 " Code commenter
 Plug 'scrooloose/nerdcommenter'
+" undo history visualization
+Plug 'mbbill/undotree'
 " easier terminal Commands
 Plug 'kassio/neoterm'
 " Search results counter
@@ -119,7 +120,7 @@ Plug 'vim-scripts/IndexedSearch'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'stsewd/fzf-checkout.vim' " TODO: Learn and test 
+Plug 'stsewd/fzf-checkout.vim' " TODO: Learn and test
 " Pending tasks list
 Plug 'fisadev/FixedTaskList.vim'
 " Async autocompletion
@@ -131,7 +132,7 @@ Plug 'liuchengxu/vista.vim'
 Plug 'Shougo/context_filetype.vim'
 " Testing
 Plug 'janko/vim-test'
-""  Python 
+""  Python
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins', 'for': 'python'}
 " Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 " Plug 'davidhalter/jedi-vim'
@@ -172,7 +173,7 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 " Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'   " shougo's snippet collection
 Plug 'honza/vim-snippets'           " honza's snippet collection
-" Tell vim-plug we finished declaring plugins, so it can load them
+" development icons
 Plug 'ryanoasis/vim-devicons'
 " markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  , 'for': ['markdown', 'vim-plug']}
@@ -193,7 +194,7 @@ Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
-nmap <F5> <Plug>VimspectorContinue
+" nnoremap <F5> <Plug>VimspectorContinue
 
 " ============================================================================
 " Install plugins the first time vim runs
@@ -221,17 +222,6 @@ source ~/.config/nvim/_machine_specific.vim
 " ============================================================================
 " Vim settings and mappings
 
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark = 'soft'
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
-colorscheme gruvbox-material
-let g:airline_theme='gruvbox_material'
-" lua require("colorbuddy").colorscheme("gruvbuddy")
-
 let mapleader=","                           " set Mapleader
 let maplocalleader='\'                           " set Maplocalleader
 
@@ -245,7 +235,7 @@ set clipboard+=unnamedplus                  " use system clipboard
 set tags=./.git/tags,tags;                  " tag file path env
 
 " FIXME:
-set scrolloff=4                             " let 10 lines before/after cursor during scroll
+set scrolloff=6                             " let 10 lines before/after cursor during scroll
 set showmatch                               " shows matching part of bracket pairs (), [], {}
 " tabs and spaces handling
 set expandtab                               " use spaces for tab
@@ -257,10 +247,10 @@ set backspace=indent,eol,start              " make backspace behave in a sane ma
 set list
 set listchars=tab:→\ ,trail:·,nbsp:·
 " Different tab/space stops"
-augroup two_spaces_filetypes
-    autocmd!
-    autocmd FileType yaml,html,json,javascript,css,scss,vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
-augroup END
+" augroup two_spaces_filetypes
+"     autocmd!
+"     autocmd FileType yaml,html,json,javascript,css,scss,vue setlocal tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+" augroup END
 autocmd FileType make setlocal noexpandtab
 
 set autoread                                " Autoload file changes"
@@ -276,7 +266,7 @@ augroup numbertoggle
 augroup END
 set ignorecase                              " ignore case of letter in search
 set smartcase                               " override ignorecase if capital letter is typed
-set hlsearch                                " highlight search results
+set hlsearch                                " highlight search results when search finished
 set incsearch                               " set incremental search, like modern browsers
 set noerrorbells                            " turn off error sound notification
 set visualbell                              " visual error notification
@@ -289,13 +279,14 @@ set spelllang=en_us,de_de                  " set language dicts
 
 set fillchars+=vert:\                       " remove vertical lines on window division
 
-set completeopt+=menu,preview               " autocompletion menu mode
+set completeopt+=menuone,noinsert,noselect               " autocompletion menu mode
+" set completeopt+=menu,preview               " autocompletion menu mode
 set wildmode=list:longest                   " complete like shell
 
 set shell=/bin/bash                         " set shell used for commands (neomake, ..)
 
 " if (has("termguicolors"))
-set termguicolors                           " set colorspace (important for most colorschemes)
+" set termguicolors                           " set colorspace (important for most colorschemes)
 " endif
 let base16colorspace=256                    " set base16 colorspace (importatn for base16 colorschemes)
 syntax enable
@@ -411,26 +402,28 @@ nnoremap <leader>- :call switch#Switch()<CR>
 " show pending tasks list
 map <F3> :TaskList<CR>
 
+" telescope ------------------------------
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 " Fzf ------------------------------
 nnoremap <C-p> :Files<CR>
 " file finder mapping
-nmap <leader>ff :Files<CR>
+nnoremap <leader>ff :Files<CR>
 "  git file finder mapping
-nmap <leader>fg :GFiles<CR>
+nnoremap <leader>fg :GFiles<CR>
 " Riggrep
-nmap <leader>fr :Rg<CR>
+nnoremap <leader>fr :Rg<CR>
 " find snippets (UltiSnips)
-nmap <leader>fs :Snippets<CR>
+nnoremap <leader>fs :Snippets<CR>
 " tags (symbols) in current file finder mapping
-nmap <leader>fT :BTag<CR>
+nnoremap <leader>fT :BTag<CR>
 " tags (symbols) in all files finder mapping
-nmap <leader>ft :Tag<CR>
+nnoremap <leader>ft :Tag<CR>
 " general code finder in current file mapping
-nmap <leader>fL :BLines<CR>
+nnoremap <leader>fL :BLines<CR>
 " general code finder in all files mapping
-nmap <leader>fl :Lines<CR>
+nnoremap <leader>fl :Lines<CR>
 " commands finder mapping
-nmap <leader>fc :Commands<CR>
+nnoremap <leader>fc :Commands<CR>
 
 if exists('$TMUX')
   " let g:fzf_layout = { 'tmux': '-p90%,60%' }
@@ -486,13 +479,23 @@ execute ':CtrlP' . a:ctrlp_command_end
 call feedkeys(a:search_text)
 endfunction
 " same as previous mappings, but calling with current word as default text
-nmap <leader>wT :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
-nmap <leader>wt :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
-nmap <leader>wl :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
-nmap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
-nmap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
-nmap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
-nmap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
+nnoremap <leader>wT :call CtrlPWithSearchText(expand('<cword>'), 'BufTag')<CR>
+nnoremap <leader>wt :call CtrlPWithSearchText(expand('<cword>'), 'BufTagAll')<CR>
+nnoremap <leader>wl :call CtrlPWithSearchText(expand('<cword>'), 'Line')<CR>
+nnoremap <leader>we :call CtrlPWithSearchText(expand('<cword>'), '')<CR>
+nnoremap <leader>pe :call CtrlPWithSearchText(expand('<cfile>'), '')<CR>
+nnoremap <leader>wm :call CtrlPWithSearchText(expand('<cword>'), 'MRUFiles')<CR>
+nnoremap <leader>wc :call CtrlPWithSearchText(expand('<cword>'), 'CmdPalette')<CR>
+" fzf-preview
+augroup fzf_preview
+  autocmd!
+  autocmd User fzf_preview#rpc#initialized call s:fzf_preview_settings() " fzf_preview#remote#initialized or fzf_preview#coc#initialized
+augroup END
+
+function! s:fzf_preview_settings() abort
+  let g:fzf_preview_command = 'COLORTERM=truecolor ' . g:fzf_preview_command
+  let g:fzf_preview_grep_preview_cmd = 'COLORTERM=truecolor ' . g:fzf_preview_grep_preview_cmd
+endfunction
 
 " Jedi-vim ------------------------------
 
@@ -530,8 +533,8 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']     " Ignore files in NERDTree
 " let NERDTreeWinSize=40
 " autocmd VimEnter * if !argc() | NERDTree | endif  " Load NERDTree only if vim is run without arguments
-" nmap " :NERDTreeToggle<CR>
-" nmap ,t :NERDTreeFind<CR>
+" nnoremap " :NERDTreeToggle<CR>
+" nnoremap ,t :NERDTreeFind<CR>
 
 "=====================================================
 "" NERDComment Settings
@@ -547,9 +550,9 @@ let g:NERDTrimTrailingWhitespace = 1            " Enable trimming of trailing wh
 "=====================================================
 "" NVim-R, Nvim-R, nvim-r, nvimr, R, r
 " Start R
-nmap <leader>rs <Plug>RStart
+nnoremap <leader>rs <Plug>RStart
 imap <leader>rs <Plug>RStart
-vmap <leader>rs <Plug>RStart
+vnoremap <leader>rs <Plug>RStart
 map <leader>rxx <Plug>RSendLine
 map <leader>rxb <Plug>RSendAboveLines
 
@@ -560,16 +563,16 @@ map <leader>rxb <Plug>RSendAboveLines
 let g:webdevicons_enable = 1
 
 " adding the flags to NERDTree
-let g:webdevicons_enable_nerdtree = 1
+" let g:webdevicons_enable_nerdtree = 1
 
 " adding to vim-airline's tabline
-let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_tabline = 0
 
 " adding to vim-airline's statusline
 let g:webdevicons_enable_airline_statusline = 1
 
 " turn on/off file node glyph decorations (not particularly useful)
-let g:WebDevIconsUnicodeDecorateFileNodes = 1
+let g:WebDevIconsUnicodeDecorateFileNodes = 0
 
 " use double-width(1) or single-width(0) glyphs
 " only manipulates padding, has no effect on terminal or set(guifont) font
@@ -582,7 +585,7 @@ let g:webdevicons_conceal_nerdtree_brackets = 0
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 
 " Force extra padding in NERDTree so that the filetype icons line up vertically
-let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+" let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
 
 " change the default character when no match found
 let g:WebDevIconsUnicodeDecorateFileNodesDefaultSymbol = 'ƛ'
@@ -632,9 +635,9 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " Trim Whitespaces
 function! TrimWhitespace()
-    let save = winsaveview()
-    %s/\\\@<!\s\+$//e
-    call winrestview(save)
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
 endfunction
 
 " Dracula Mode (Dark)
@@ -700,51 +703,52 @@ function! ColorGruvbox()
 endfunction
 
 " switch aesthetics
-" nmap <leader>g :Goyo<CR>
-nmap <leader>fcs :Colors<CR>
-nmap <leader>fat :AirlineTheme
-nmap <leader>sct1 :call ColorSolarized_low()<CR>
-nmap <leader>sct2 :call ColorSeoul256()<CR>
-nmap <leader>sct3 :call ColorTender()<CR>
-nmap <leader>sct4 :call ColorZazen()<CR>
-nmap <leader>sct5 :call ColorBadwolf()<CR>
-nmap <leader>sct6 :call ColorOceanicNext()<CR>
-nmap <leader>sct7 :call ColorOnedark()<CR>
-nmap <leader>sct8 :call ColorPalenight()<CR>
-nmap <leader>sct9 :call ColorNeodark()<CR>
-nmap <leader>sct0 :call ColorGruvbox()<CR>
-nmap <leader>rv :w<CR> :so ~/.dotfiles/init.vim<CR> 
-nmap <leader>ri :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugInstall <CR>
-nmap <leader>ru :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugClean <CR>
-nmap <leader>rb :w<CR> :so ~/.bashrc<CR>
-nmap <leader>tw :call TrimWhitespace()<CR>
+" nnoremap <leader>g :Goyo<CR>
+nnoremap <leader>fcs :Colors<CR>
+nnoremap <leader>fat :AirlineTheme
+nnoremap <leader>sct1 :call ColorSolarized_low()<CR>
+nnoremap <leader>sct2 :call ColorSeoul256()<CR>
+nnoremap <leader>sct3 :call ColorTender()<CR>
+nnoremap <leader>sct4 :call ColorZazen()<CR>
+nnoremap <leader>sct5 :call ColorBadwolf()<CR>
+nnoremap <leader>sct6 :call ColorOceanicNext()<CR>
+nnoremap <leader>sct7 :call ColorOnedark()<CR>
+nnoremap <leader>sct8 :call ColorPalenight()<CR>
+nnoremap <leader>sct9 :call ColorNeodark()<CR>
+nnoremap <leader>sct0 :call ColorGruvbox()<CR>
+nnoremap <leader>rv :w<CR> :so ~/.dotfiles/init.vim<CR>
+nnoremap <leader>ri :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugInstall <CR>
+nnoremap <leader>ru :w<CR> :so ~/.dotfiles/init.vim<CR> :PlugClean <CR>
+nnoremap <leader>rb :w<CR> :so ~/.bashrc<CR>
 
 "=====================================================
 "" vim-test, test
 let test#strategy = "neoterm"
 let test#python#runner = "pyunit"
-let test#neovim#term_position = "topleft"
+let test#neovim#term_position = "vert botright 100"
 let g:test#preserve_screen = 1  " No clearing of screen when executing tests"
 
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>ts :TestSuite<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tg :TestVisit<CR>
 
 "=====================================================
 "" Neoterm
-let g:neoterm_default_mod='botright'        " open terminals with mod
+let g:neoterm_shell = '$SHELL -l'
+let g:neoterm_default_mod='vert'        " open terminals with mod
+let g:neoterm_size = 120
 let g:neoterm_use_relative_path=1           " expand % to file path
 let g:neoterm_direct_open_repl=1
 let g:neoterm_repl_python='/home/ben/.programs/anaconda3/bin/ipython'
 let g:neoterm_autoscroll=1
-let g:neoterm_keep_term_open=1
+let g:neoterm_keep_term_open=0
 let g:neoterm_term_per_tab=1
 " mappings to send stuff to REPL
-vmap <localleader>ss <Plug>(neoterm-repl-send)           
-nmap <localleader>ll <Plug>(neoterm-repl-send-line)
-nmap <localleader>aa gg<S-v>``G<Plug>(neoterm-repl-send)``
+vnoremap <localleader>ss <Plug>(neoterm-repl-send)
+nnoremap <localleader>ll <Plug>(neoterm-repl-send-line)
+nnoremap <localleader>aa gg<S-v>``G<Plug>(neoterm-repl-send)``
 xmap <localleader>ss <Plug>(neoterm-repl-send)
 
 "=====================================================
@@ -753,43 +757,36 @@ xmap <localleader>ss <Plug>(neoterm-repl-send)
 "=====================================================
 "" Git section
 " fugitive
-nmap <leader>gs :Gstatus<cr>
-nmap <leader>gw :Gwrite<cr>
-nmap <leader>ge :Gedit<cr>
-nmap <leader>gcf :Gcommit %<cr>
-nmap <leader>gcm :Gcommit %
-nmap <leader>gp :Gpush<cr>
-nmap <leader>gP :Gpull<cr>
-nmap <leader>gr :Gread<cr>
-nmap <leader>gbf :Gblame<cr>
-nmap <leader>gbb v :Gblame<cr>
-nmap <leader>gm :Gmerge
-nmap <leader>gf :GFiles<cr>
-vmap <silent>gu <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>ge :Gedit<cr>
+nnoremap <leader>gcf :Gcommit %<cr>
+nnoremap <leader>gcm :Gcommit %
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gP :Gpull<cr>
+nnoremap <leader>gr :Gread<cr>
+nnoremap <leader>gbf :Gblame<cr>
+nnoremap <leader>gbb v :Gblame<cr>
+nnoremap <leader>gm :Gmerge
+nnoremap <leader>gf :GFiles<cr>
+vnoremap <silent>gu <esc>:Gdiff<cr>gv:diffget<cr><c-w><c-w>ZZ
 " Fugitive Conflict Resolution
 nnoremap <leader>gd :Gvdiff<CR>
 nnoremap gh :diffget //2<CR>
 nnoremap gl :diffget //3<CR>
 
 " rhubarb
-nmap <leader>ghb :Gbrowse<cr>
+nnoremap <leader>ghb :Gbrowse<cr>
 " coc-git
 nmap gk <Plug>(coc-git-prevchunk)
 nmap gj <Plug>(coc-git-nextchunk)
 nmap gi <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<cr>
 " Twiggy
-nmap <leader>gt :Twiggy<CR>
+nnoremap <leader>gt :Twiggy<CR>
 " Signify
-let g:signify_vcs_list = [ 'git' ]                  " vcs systems to check (many might slow opening of files)
+" let g:signify_vcs_list = [ 'git' ]                  " vcs systems to check (many might slow opening of files)
 " nicer colors
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
-highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
-highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
-highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
-
 
 "=====================================================
 "" Coc, coc
@@ -805,15 +802,15 @@ let g:coc_global_extensions = [
             \ 'coc-emoji',
             \ 'coc-eslint',
             \ 'coc-explorer',
+            \ 'coc-fzf-preview',
             \ 'coc-git',
             \ 'coc-gitignore',
             \ 'coc-highlight',
             \ 'coc-html',
-            \ 'coc-jedi',
             \ 'coc-json',
             \ 'coc-lists',
             \ 'coc-marketplace',
-            \ 'coc-pairs', 
+            \ 'coc-pairs',
             \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-pyright',
@@ -821,11 +818,10 @@ let g:coc_global_extensions = [
             \ 'coc-sh',
             \ 'coc-smartf',
             \ 'coc-snippets',
-            \ 'coc-styled-components',
             \ 'coc-syntax',
             \ 'coc-tag',
             \ 'coc-terminal',
-            \ 'coc-texlab', 
+            \ 'coc-texlab',
             \ 'coc-todolist',
             \ 'coc-tsserver',
             \ 'coc-tslint-plugin',
@@ -837,29 +833,35 @@ let g:coc_global_extensions = [
             \ 'coc-yaml'
             \ ]
 
+set cmdheight=2
 set hidden              " if hidden is not set, TextEdit might fail.
 set nobackup            " Some servers have issues with backup files, see #649
 set nowritebackup
-set updatetime=300      " You will have bad experience for diagnostic messages when it's default 4000.
+set noswapfile
+if has('persistent_undo')
+    set undodir=$HOME"/.undodir"
+    set undofile
+endif
+set updatetime=50       " You will have bad experience for diagnostic messages when it's default 4000.
 set shortmess+=c        " don't give |ins-completion-menu| messages.
 set signcolumn=yes      " always show signcolumns
 
 """" coc keymaps
-nmap <leader>ue :CocCommand extensions.forceUpdateAll<CR>
+nnoremap <leader>ue :CocCommand extensions.forceUpdateAll<CR>
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> dk <Plug>(coc-diagnostic-prev)
-nmap <silent> dj <Plug>(coc-diagnostic-next)
+nnoremap <silent> dk <Plug>(coc-diagnostic-prev)
+nnoremap <silent> dj <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
 "
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " coc-explorer
-nmap <space>e :CocCommand explorer<CR>
+nnoremap <space>e :CocCommand explorer<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -873,29 +875,31 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <F2> <Plug>(coc-rename)
+nnoremap <F2> <Plug>(coc-rename)
+nnoremap <silent> <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
-vmap <leader>f  <Plug>(coc-format-selected)
+vnoremap <leader>f  <Plug>(coc-format-selected)
 nnoremap <leader>f :<C-u>Format <cr>
 
-augroup mygroup
+augroup BENATOUBA
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocAction('showSignatureHelp')
-augroup end
+  autocmd BufWritePre * :call TrimWhitespace()
+augroup END
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+nnoremap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nmap <space>ac  <Plug>(coc-codeaction)
+nnoremap <space>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <space>qf  <Plug>(coc-fix-current)
+nnoremap <space>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of
 " languageserver.
@@ -906,7 +910,7 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nmap <silent> <TAB> <Plug>(coc-range-select)
+" nnoremap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
@@ -959,8 +963,8 @@ nnoremap <silent> <space>sl  :<C-u>CocCommand session.save<CR>
 
 "" coc-snippet
 imap <C-l> <Plug>(coc-snippets-expand)          " Use <C-l> for trigger snippet expand.
-vmap <C-j> <Plug>(coc-snippets-select)          " Use <C-j> for select text for visual placeholder of snippet.
-let g:coc_snippet_next = '<c-j>'                " Use <C-j> for jump to next placeholder, it's default of coc.nvim 
+vnoremap <C-j> <Plug>(coc-snippets-select)          " Use <C-j> for select text for visual placeholder of snippet.
+let g:coc_snippet_next = '<c-j>'                " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'                " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 imap <C-j> <Plug>(coc-snippets-expand-jump)     " Use <C-j> for both expand and jump (make expand higher priority.)
 
@@ -979,8 +983,8 @@ endfunction
 let g:python_highlight_all = 1
 
 " python, coc-python
-nmap <space>pi :CocCommand python.setInterpreter<CR>
-nmap <space>pl :CocCommand python.runLinting<CR>
+nnoremap <space>pi :CocCommand python.setInterpreter<CR>
+nnoremap <space>pl :CocCommand python.runLinting<CR>
 autocmd BufWritePre *.py :%s/\s\+$//e " trim trailing spaces
 
 " Coc-Calc, coc-calc
@@ -1001,17 +1005,47 @@ nnoremap <space>ltd :CocList todolist<CR>
 
 " coc-terminal
 
-nmap <space>tt <Plug>(coc-terminal-toggle)
-nmap <space>tr :CocCommand terminal.REPL<CR>
-nmap <space>tq :CocCommand terminal.Destroy<CR>
+nnoremap <space>tt <Plug>(coc-terminal-toggle)
+nnoremap <space>tr :CocCommand terminal.REPL<CR>
+nnoremap <space>tq :CocCommand terminal.Destroy<CR>
 
 " coc-smartf
-nmap f <Plug>(coc-smartf-forward)
-nmap F <Plug>(coc-smartf-backward)
-nmap ; <Plug>(coc-smartf-repeat)
-nmap , <Plug>(coc-smartf-repeat-opposite)
+nnoremap f <Plug>(coc-smartf-forward)
+nnoremap F <Plug>(coc-smartf-backward)
+nnoremap ; <Plug>(coc-smartf-repeat)
+nnoremap , <Plug>(coc-smartf-repeat-opposite)
 
 augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 augroup end
+
+" Visuals
+colorscheme gruvbox
+let g:airline_theme='gruvbox'
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='1'
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
+set background=dark
+" lua require("colorbuddy").colorscheme("gruvbuddy")
+
+highlight Normal guibg=none
+highlight SignColumn guibg=#282828 guifg=#ff8659
+" highlight LineNr guifg=#ff8659
+" highlight LineNr guifg=#aed75f
+highlight LineNr guifg=#5eacd3
+highlight CursorLineNr guifg=#ff8659
+highlight link netrwDir LineNr
+highlight search            guifg=#ff8659
+highlight incsearch         guifg=#5eacd3
+highlight qfFileName        guifg=#aed75f
+
+" groups are reversed. this increases priority
+highlight DiffAdd           guifg=#282828 guibg=#aed75f gui=reverse,bold
+highlight DiffDelete        guifg=#282828 guibg=#ff8659 gui=reverse,bold
+highlight DiffChange        guifg=#282828 guibg=#5eacd3 gui=reverse,bold
