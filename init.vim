@@ -194,7 +194,7 @@ Plug 'nvim-lua/telescope.nvim'
 
 call plug#end()
 
-" nnoremap <F5> <Plug>VimspectorContinue
+" nmap <F5> <Plug>VimspectorContinue
 
 " ============================================================================
 " Install plugins the first time vim runs
@@ -550,9 +550,9 @@ let g:NERDTrimTrailingWhitespace = 1            " Enable trimming of trailing wh
 "=====================================================
 "" NVim-R, Nvim-R, nvim-r, nvimr, R, r
 " Start R
-nnoremap <leader>rs <Plug>RStart
+nmap <leader>rs <Plug>RStart
 imap <leader>rs <Plug>RStart
-vnoremap <leader>rs <Plug>RStart
+vmap <leader>rs <Plug>RStart
 map <leader>rxx <Plug>RSendLine
 map <leader>rxb <Plug>RSendAboveLines
 
@@ -746,9 +746,9 @@ let g:neoterm_autoscroll=1
 let g:neoterm_keep_term_open=0
 let g:neoterm_term_per_tab=1
 " mappings to send stuff to REPL
-vnoremap <localleader>ss <Plug>(neoterm-repl-send)
-nnoremap <localleader>ll <Plug>(neoterm-repl-send-line)
-nnoremap <localleader>aa gg<S-v>``G<Plug>(neoterm-repl-send)``
+vmap <localleader>ss <Plug>(neoterm-repl-send)
+nmap <localleader>ll <Plug>(neoterm-repl-send-line)
+nmap <localleader>aa gg<S-v>``G<Plug>(neoterm-repl-send)``
 xmap <localleader>ss <Plug>(neoterm-repl-send)
 
 "=====================================================
@@ -833,7 +833,7 @@ let g:coc_global_extensions = [
             \ 'coc-yaml'
             \ ]
 
-set cmdheight=2
+set cmdheight=1
 set hidden              " if hidden is not set, TextEdit might fail.
 set nobackup            " Some servers have issues with backup files, see #649
 set nowritebackup
@@ -849,14 +849,14 @@ set signcolumn=yes      " always show signcolumns
 """" coc keymaps
 nnoremap <leader>ue :CocCommand extensions.forceUpdateAll<CR>
 " Use `[g` and `]g` to navigate diagnostics
-nnoremap <silent> dk <Plug>(coc-diagnostic-prev)
-nnoremap <silent> dj <Plug>(coc-diagnostic-next)
+nmap <silent> dk <Plug>(coc-diagnostic-prev)
+nmap <silent> dj <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gi <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 "
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -875,8 +875,8 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nnoremap <F2> <Plug>(coc-rename)
-nnoremap <silent> <leader>rn <Plug>(coc-rename)
+nmap <F2> <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
@@ -894,12 +894,12 @@ augroup END
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
-nnoremap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
-nnoremap <space>ac  <Plug>(coc-codeaction)
+nmap <space>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nnoremap <space>qf  <Plug>(coc-fix-current)
+nmap <space>qf  <Plug>(coc-fix-current)
 
 " Create mappings for function text object, requires document symbols feature of
 " languageserver.
@@ -910,7 +910,7 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-" nnoremap <silent> <TAB> <Plug>(coc-range-select)
+" nmap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <TAB> <Plug>(coc-range-select)
 " xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
 
@@ -963,7 +963,7 @@ nnoremap <silent> <space>sl  :<C-u>CocCommand session.save<CR>
 
 "" coc-snippet
 imap <C-l> <Plug>(coc-snippets-expand)          " Use <C-l> for trigger snippet expand.
-vnoremap <C-j> <Plug>(coc-snippets-select)          " Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)          " Use <C-j> for select text for visual placeholder of snippet.
 let g:coc_snippet_next = '<c-j>'                " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'                " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 imap <C-j> <Plug>(coc-snippets-expand-jump)     " Use <C-j> for both expand and jump (make expand higher priority.)
@@ -1005,15 +1005,15 @@ nnoremap <space>ltd :CocList todolist<CR>
 
 " coc-terminal
 
-nnoremap <space>tt <Plug>(coc-terminal-toggle)
+nmap <space>tt <Plug>(coc-terminal-toggle)
 nnoremap <space>tr :CocCommand terminal.REPL<CR>
 nnoremap <space>tq :CocCommand terminal.Destroy<CR>
 
 " coc-smartf
-nnoremap f <Plug>(coc-smartf-forward)
-nnoremap F <Plug>(coc-smartf-backward)
-nnoremap ; <Plug>(coc-smartf-repeat)
-nnoremap , <Plug>(coc-smartf-repeat-opposite)
+nmap f <Plug>(coc-smartf-forward)
+nmap F <Plug>(coc-smartf-backward)
+nmap ; <Plug>(coc-smartf-repeat)
+nmap , <Plug>(coc-smartf-repeat-opposite)
 
 augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
