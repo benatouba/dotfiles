@@ -8,5 +8,6 @@
     "rules": {
         "quotes": ["warn", "single" ],
         "semi": "off"
+        "indent": 2
     }
 }

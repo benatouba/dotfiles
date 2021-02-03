@@ -1,3 +1,5 @@
+echo "\n"
+neofetch
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -11,13 +13,14 @@ POWERLEVEL9K_LEGACY_ICON_SPACING=true
 # if [ "$TMUX" = "" ]; then tmux; fi
 
 # User Settings
+source ~/.zsh/autostart.zsh
 source ~/.zsh/export.zsh
 source ~/.zsh/settings.zsh
 source ~/.zsh/function.zsh
 source ~/.zsh/alias.zsh
 source ~/.zsh/github.zsh
 source ~/.zsh/fzf.zsh
-# source ~/.zsh/tokens.zsh
+source ~/.zsh/tokens.zsh
 
 # Nodenv init
 # eval "$(nodenv init -)" # not installed
@@ -84,15 +87,12 @@ export ZSH="/home/$USER/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=( poetry git tmux osx zsh-syntax-highlighting yarn npm docker fzf fzf-docker fzf-tab zsh-autosuggestions ssh-agent bundler )
-# export FZF_DEFAULT_COMMAND='fdfind . -type f ! -path "*/\.git/*" ! -path "*/\node_modules/*" ! -path "*/\coverage/*" ! -path "*/\npm-packages-offline-cache/*"'
-# export FZF_CTRL_T_COMMAND='fdfind . -type f ! -path "*/\.git/*" ! -path "*/\node_modules/*" ! -path "*/\coverage/*" ! -path "*/\npm-packages-offline-cache/*"'
-# export FZF_DEFAULT_OPTS="-i --preview 'bat --style=numbers --color=always {}'"
-# export FZF_DEFAULT_OPTS="-i"
+# plugins=( git tmux django ripgrep colored-man-pages frontend-search zsh-syntax-highlighting yarn vim-interaction fzf fzf-tab zsh-autosuggestions pip nvm ssh-agent )
+plugins=( git tmux django ripgrep colored-man-pages frontend-search zsh-syntax-highlighting yarn vim-interaction fzf fzf-tab zsh-autosuggestions pip nvm ssh-agent )
 
 source $ZSH/oh-my-zsh.sh
 
-source ~/.zsh/forgit.zsh
+# source ~/.zsh/forgit.zsh
 
 # User configuration
 
@@ -146,7 +146,15 @@ fpath=(~/.programs/cht.sh/zsh.d/ $fpath)
 fpath+=~/.zfunc
 
 export PATH="$HOME/.poetry/bin:$PATH"
+# add folders to path env
+export PATH="$(yarn global bin):$PATH"
 
 export PATH="/home/ben/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+
+# NVM node version manager
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+

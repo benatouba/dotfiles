@@ -1,7 +1,7 @@
 # i3 config file
 set $mod Mod4
 
-font pango:FiraCode Nerd Font Mono 8
+font pango:FiraCode Nerd Font Mono 9
 # font pango:SauceCodePro Nerd Font Mono
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -193,11 +193,11 @@ bindsym $mod+Shift+d exec rofi -dpi 150 -show emoji -modi emoji
 bindsym $mod+x exec i3lock-fancy
 
 ################### assign apps to workspace ###################
-assign [class="brave"] $ws2
-assign [class="firefox"] $ws2
+assign [class="brave"] $ws3
+assign [class="firefox"] $ws3
 assign [class="spotify"] $ws4
-assign [class="thunderbird"] $ws3
-assign [class="rambox"] $ws4
+assign [class="thunderbird"] $ws5
+assign [class="rambox"] $ws5
 assign [class="skype"] $ws5
 assign [class="looking-glass-client"] $ws6
 assign [class="virt-manager"] $ws7

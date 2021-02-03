@@ -1,12 +1,12 @@
-if [ $USER = "ben" ] 
+if [ $USER = "ben" ]
 then
     # alias vim="~/.programs/nvim.appimage"
     alias vim="nvim"
     alias oni2="~/.programs/onivim2.appimage"
     alias up="sudo apt update && sudo apt upgrade && sudo apt autoremove && sudo apt clean && sudo apt autoclean"
-    alias upConda="upCondaBaseEnv && upNeovim3Env && upDashboardsEnv"
+    alias upConda="upCondaBaseEnv && upDashboardsEnv"
     alias upVim="vim +PlugUpgrade +CocUpdate +PlugUpdate +UpdateRemotePlugins"
-    alias upCondaBaseEnv="conda update -n base python"
+    alias upCondaBaseEnv="conda update -n base --file ~/.dotfiles/conda_base.yaml"
     alias upNeovim3Env="conda update -n neovim3 --file ~/.dotfiles/conda_neovim3.yaml"
     alias upDashboardsEnv="conda update -n dashboards --file ~/.dotfiles/conda_dashboards.yaml"
     alias upAll="up && upConda && upVim"

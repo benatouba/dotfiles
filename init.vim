@@ -168,7 +168,7 @@ Plug 'mhinz/vim-startify'
 Plug 'jalvesaq/Nvim-R', {'branch': 'stable', 'for': 'Rscript'} " R Console inside neovim
 " Latex, latex, Latex
 " Plug 'donRaphaco/neotex', {'for': 'tex'}
-Plug 'lervag/vimtex', {'for': 'tex'}
+" Plug 'lervag/vimtex', {'for': 'tex'}
 " Snippets
 " Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'   " shougo's snippet collection
@@ -354,7 +354,6 @@ autocmd BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 
 " tab navigation mappings
-map <C-n> :tabnew<CR>
 map <C-Right> :tabn<CR>
 map <C-Right> <ESC>:tabn<CR>
 map <C-Left> :tabp<CR>
@@ -794,44 +793,38 @@ let g:coc_node_path = "/usr/bin/node"
 
 let g:coc_global_extensions = [
             \ 'coc-bibtex',
-            \ 'coc-calc',
             \ 'coc-clangd',
             \ 'coc-css',
             \ 'coc-dictionary',
             \ 'coc-emmet',
-            \ 'coc-emoji',
             \ 'coc-eslint',
-            \ 'coc-explorer',
             \ 'coc-fzf-preview',
             \ 'coc-git',
             \ 'coc-gitignore',
             \ 'coc-highlight',
-            \ 'coc-html',
             \ 'coc-json',
             \ 'coc-lists',
             \ 'coc-marketplace',
-            \ 'coc-pairs',
             \ 'coc-phpls',
             \ 'coc-prettier',
             \ 'coc-pyright',
             \ 'coc-r-lsp',
             \ 'coc-sh',
-            \ 'coc-smartf',
             \ 'coc-snippets',
-            \ 'coc-syntax',
-            \ 'coc-tag',
             \ 'coc-terminal',
             \ 'coc-texlab',
-            \ 'coc-todolist',
             \ 'coc-tsserver',
             \ 'coc-tslint-plugin',
             \ 'coc-vetur',
             \ 'coc-vimlsp',
             \ 'coc-vimtex',
-            \ 'coc-word',
             \ 'coc-yank',
             \ 'coc-yaml'
             \ ]
+" uninstalled: 'coc-syntax','coc-smartf',
+            " 'coc-pairs','coc-html',
+            " 'coc-explorer',
+
 
 set cmdheight=1
 set hidden              " if hidden is not set, TextEdit might fail.
@@ -839,7 +832,7 @@ set nobackup            " Some servers have issues with backup files, see #649
 set nowritebackup
 set noswapfile
 if has('persistent_undo')
-    set undodir=$HOME"/.undodir"
+    let &undodir=$HOME . '/.undodir'
     set undofile
 endif
 set updatetime=50       " You will have bad experience for diagnostic messages when it's default 4000.

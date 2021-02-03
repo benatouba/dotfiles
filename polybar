@@ -4,30 +4,72 @@ include-file = ~/.config/polybar/colors.ini
 
 [vars]
 fullWidth = 100%
-barHeight = 17
+barHeight = 20
 underline-size = 2
 padding = 1
 
-[bar/bottom]
+[bar/example]
+monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 27
+;offset-x = 1%
+;offset-y = 1%
+radius = 6.0
+fixed-center = false
+
+background = #000000
+foreground = #3d3d3d
+
+line-size = 3
+line-color = #f00
+
+border-size = 4
+border-color = #00000000
+
+padding-left = 0
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
+font-2 = siji:pixelsize=10;1
+
+modules-left = i3
+modules-right = filesystem xkeyboard memory cpu wlan date power-menu
+
+tray-position = right
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/seasonschange]
+monitor = ${env:MONITOR}
 width = ${vars.fullWidth}
 height = ${vars.barHeight}
-offset-x = 0
-offset-y = 0
-radius = 0
+foreground = ${color.white}
+; offset-x = 0
+; offset-y = 0
+; radius = 0
 fixed-center = true
 background = ${color.grayDark}
 underline-size = ${vars.underline-size}
 font-0 = Material Design Icons:pixelsize=11:style:Solid;3
 font-1 = FiraCode Nerd Font Mono:pixelsize=11:style:regular;3
-font-2 = FiraCode Nerd Font Mono:pixelsize=15:style:regular;6
+; font-2 = FiraCode Nerd Font Mono:pixelsize=15:style:regular;6
+font-2 = Weather Icons:size=12;1
 modules-center = spacer-slanted-left-grayLight date spacer-slanted-right-grayLight
-modules-right = cpu spacer-thin-left-whiteLight song spacer-thin-left-whiteLight pulseaudio wireless-network spacer-thicc-left-grayLight vm xkeyboard power-menu
+modules-right = openweathermap spacer-thin-left-whiteDark toggl spacer-thin-left-whiteDark spotify previous playpause next audio spacer-thin-left-whiteDark cpu memory spacer-thin-left-whiteDark wifi wlan spacer-thin-left-whiteDark power-menu
 modules-left = updates spacer-thicc-right-grayDark i3 spacer-thin-right-whiteDark xwindow spacer-thicc-right-grayLight
 wm-restack = i3
-override-redirect = true
+override-redirect = false
 cursor-click = pointer
 cursor-scroll = default
 bottom = false
+enable-ipc = true
+; tray-reparent = true
 ;tray-background = #2b2b2b
 ;tray-position = left
 ;tray-padding = 3
@@ -42,7 +84,7 @@ bottom = false
 ; DONE
 [module/i3]
 type = internal/i3
-format = "%{T1}<label-state><label-mode>%{T-}"
+format = %{T1}<label-state><label-mode>%{T-}
 pin-workspaces = false
 ws-icon-0 = 1;
 ws-icon-1 = 2;
@@ -127,11 +169,11 @@ type = custom/menu
 exec = echo ""
 format-foreground = ${color.red}
 format-background = ${color.grayLight}
-format-padding = ${vars.padding}
-format-spacing = 1
+; format-padding = ${vars.padding}
+; format-spacing = 1
 click-left = ~/.config/rofi/rofi\ menu/powermenu.sh &
 expand-right = true
-label-open = " Session "
+label-open = "  "
 label-close = " Close "
 label-separator = |
 interval = 600
@@ -222,30 +264,41 @@ interval = 6
 tail = true
 
 ; DONE
-[module/pulseaudio]
+[module/audio]
 type = internal/pulseaudio
-sink = alsa_output.pci-0000_12_00.3.analog-stereo
-use-ui-max = true
-interval = 5
-format-volume = "%{T3}<ramp-volume>%{T-} <label-volume>"
-format-volume-padding = ${vars.padding}
-format-muted = "<label-muted>"
-format-muted-padding = ${vars.padding}
-label-muted = "%{T3}%{T-}"
-label-muted-foreground = ${color.red}
-ramp-volume-0 = 
-ramp-volume-1 = 墳
-ramp-volume-2 = 
-click-right = pavucontrol &
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = 🔇 muted
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = #ff0000
 
 ; DONE
 [module/cpu]
+
 type = internal/cpu
-interval = 0.5
-format = "<label>"
-label = ${env:MODULE_CPU}
-label-padding = ${vars.padding}
-ramp-coreload-padding = ${vars.padding}
+format = <label>
+interval = 2
+label = "%{T2.5} %{T1}%percentage:2%% "
+label-foreground = #eefafafa
 
 [module/battery]
 type = internal/battery
@@ -278,28 +331,159 @@ animation-discharging-3 = 
 animation-discharging-4 = 
 animation-discharging-framerate = 500
 
-[module/wireless-network]
+[module/memory]
+type = internal/memory
+format = <label>
+interval = 3
+label = " %percentage_used%% "
+label-foreground = #eefafafa
+
+[module/wifi]
 type = internal/network
 interface = wlp3s0
 interval = 3.0
-udspeed-minwidth = 5
 accumulate-stats = true
 unknown-as-up = true
-format-connected = "<ramp-signal> <label-connected> "
+format-connected = <label-connected>
 format-disconnected = "<label-disconnected>"
 format-packetloss = <animation-packetloss> <label-connected>
-label-connected = %{T3}
+label-connected = %{T4} %downspeed:min:max%
 label-connected-foreground = #eefafafa
 label-disconnected = %{T3}睊
 label-disconnected-foreground = #66ffffff
-ramp-signal-0 = 😱
-ramp-signal-1 = 😠
-ramp-signal-2 = 😒
-ramp-signal-3 = 😊
-ramp-signal-4 = 😃
-ramp-signal-5 = 😈
 animation-packetloss-0 = ⚠
 animation-packetloss-0-foreground = #ffa64c
 animation-packetloss-1 = 📶
 animation-packetloss-1-foreground = #000000
 animation-packetloss-framerate = 500
+
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = #ff5555
+
+
+[module/alsa]
+type = internal/alsa
+master-soundcard = default
+speaker-soundcard = default
+headphone-soundcard = default
+master-mixer = Master
+mapped = true
+
+format-volume = <label-volume> <bar-volume>
+label-volume = V
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = ""
+format-muted-foreground = #ff5555
+label-muted = muted
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = true
+bar-volume-indicator = 
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = #ff5555
+
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = #ff5555
+
+[module/previous]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo "Previous"
+click-left = "spotifyctl -q previous"
+
+
+[module/next]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo "Next"
+click-left = "spotifyctl -q next"
+format-foreground =  ${color.white}
+
+[module/playpause]
+type = custom/ipc
+format-font = 2
+; Default
+hook-0 = echo ""
+; Playing
+hook-1 = echo "Pause"
+; Paused
+hook-2 = echo "Play"
+click-left = "spotifyctl -q playpause"
+
+
+[module/spotify]
+type = custom/ipc
+; Default
+hook-0 = echo ""
+label-foreground = ${root.foreground}
+label-hook-0 = ${root.foreground}
+label-hook = ${root.foreground}
+; Playing/paused show song name and artist
+hook-1 = spotifyctl -q status --format '%artist%: %title%'
+
+[module/toggl]
+type = custom/script
+
+exec = "~/.pyenv/shims/python3 $HOME/.dotfiles/polybar-scripts/polybar-scripts/toggl_polybar/toggl.py"
+interval = 20.0
+format = <label>
+format-foreground =  ${color.white}
+format-padding = 1
+click-left = "xdg-open https://toggl.com/app/timer"
+
+[module/openweathermap]
+type = custom/script
+exec = ~/.dotfiles/polybar-scripts/polybar-scripts/openweathermap-fullfeatured/openweathermap-fullfeatured.sh
+interval = 600
+label-font = 3
+format-foreground =  ${color.white}
+
+[module/info-wifionice]
+type = custom/script
+exec = ~/.dotfiles/polybar-scripts/polybar-scripts/info-wifionice.sh
+interval = 10

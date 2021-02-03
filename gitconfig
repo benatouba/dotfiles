@@ -3,9 +3,9 @@
 	email = benschmidt@live.de
 	username = schmidt
 [core]
-	editor = ~/.programs/nvim.appimage
+	editor = nvim
 	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = ~/.gitignore
+	excludesfile = ~/.dotfiles/gitignore
 [web]
 	browser = firefox
 [init]
@@ -13,7 +13,7 @@
 [push]
 	default = matching
 [color]
-	ui = auto
+	ui = true
 [color "branch"]
 	current = yellow bold
 	local = green bold

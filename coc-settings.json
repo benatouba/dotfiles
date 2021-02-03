@@ -1,16 +1,16 @@
 {
-	"coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "vue", "python"],
+    "coc.preferences.formatOnSaveFiletypes": ["css", "markdown", "javascript", "vue", "python"],
     "clangd.semanticHighlighting": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
-		"source.fixAll.eslint": true
-	},
-  "coc.preferences.formatOnType": true,
-	"editor.formatOnSave": true,
-	"editor.suggestSelection": "first",
+        "source.fixAll.eslint": true
+    },
+    "coc.preferences.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.suggestSelection": "first",
     "emmet.showAbbreviationSuggestions": true,
-    "emmet.includeLanguage": {"vue-html": "html"},
-	"explorer.confirmDelete": false,
+    "emmet.includeLanguage": { "vue-html": "html", "vue": "html" },
+    "explorer.confirmDelete": false,
     "explorer.quitOnOpen": true,
     "explorer.sources": [
         {
@@ -27,128 +27,144 @@
         }
     ],
     "explorer.icon.enableNerdfont": true,
-	"files.autoSave": "onFocusChange",
-	"files.exclude": {
-		".pytest_cache": true,
-		"**/__init__.py": true,
-		"**/__pycache__": true,
-		"**/.coverage": true,
-		"**/*.pyc": true,
-		"**/*.vim": true
-	},
-  "git.command": "/usr/bin/git",
-  "git.addGBlameToVirtualText": true,
-  "git.addedSign.text": "落",
-  "git.changedSign.text": "ﱴ",
-  "git.removedSign.text": "",
-  "git.topRemovedSign.hlGroup": "",
-  "git.changeRemovedSign.text": "",
-	"html.filetypes": ["html", "handlebars", "inc"],
-	"html.format.enable": true,
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {
+        ".pytest_cache": true,
+        "**/__init__.py": true,
+        "**/__pycache__": true,
+        "**/.coverage": true,
+        "**/*.pyc": true,
+        "**/*.vim": true
+    },
+    "git.command": "/usr/bin/git",
+    "git.gitlab.hosts": [
+        "gitlab.klima.tu-berlin.de",
+        "gitlab.com"
+    ],
+    "git.addGBlameToVirtualText": true,
+    "git.signPriority": 100,
+    "git.addedSign.text": "落",
+    "git.changedSign.text": "ﱴ",
+    "git.removedSign.text": "",
+    "git.topRemovedSign": "",
+    "git.changeRemovedSign.text": "",
+    "html.filetypes": ["html", "handlebars", "inc"],
+    "html.format.enable": true,
     "javascript.format.enabled": true,
     "javascript.showUnused": true,
     "javascript.updateImportsOnFileMove.enable": true,
-	"latex.build.executable": "/usr/bin/pdflatex",
-	"latex.build.onSave": true,
-	"latex.build.outputDirectory": ".",
-	"latex.lint.onSave": true,
-	"latex.forwardSearch.executable": "evince",
+    "latex.build.executable": "/usr/bin/pdflatex",
+    "latex.build.onSave": true,
+    "latex.build.outputDirectory": ".",
+    "latex.lint.onSave": true,
+    "latex.forwardSearch.executable": "evince",
     "list.source.files.args": ["--hidden", "--files"],
     "eslint.autoFixOnSave": true,
-    "eslint.packageManager": "npm",
-    "eslint.options": {"configFile": "/home/ben/.dotfiles/eslintrc.json"},
+    "eslint.packageManager": "yarn",
+    "eslint.options": { "configfile": "/home/ben/.dotfiles/eslintrc.json" },
     "prettier.bracketSpacing": true,
     "prettier.eslintIntegration": true,
-	"prettier.printWidth": 120,
+    "prettier.printWidth": 120,
     "prettier.proseWrap": "always",
     "prettier.semi": false,
-	"prettier.singleQuote": true,
-	"prettier.tabWidth": 4,
-	"prettier.trailingComma": "es5",
-    "python.insidersChannel": "off",
-	"python.languageServer": "Pylance",
-	"python.linting.enabled": true,
-	"python.linting.flake8Enabled": true,
-	"python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
-	"python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
+    "prettier.singleQuote": true,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "es5",
+    /* "jedi.enable": true, */
+    /* "jedi.workspace.extraPaths": [ */
+    /*     ".", */
+    /*     "~/scripts/dms_frontend", */
+    /*     "~/scripts/DMS_backend/", */
+    /*     "~/.programs/anaconda3/bin/" */
+    /* ], */
+    /* "python.insidersChannel": "off", */
+    /* "python.languageServer": "Pylance", */
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Path": "/home/ben/.programs/anaconda3/envs/neovim3/bin/flake8",
+    "python.linting.flake8Args": ["--verbose", "--max-line-length", "120"],
     "python.linting.lintOnSave": true,
-	"python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
-	"python.formatting.provider": "yapf",
-	"python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
+    "python.linting.pylintArgs": ["--ignored-modules", "netCDF4", "--line-length", "120"],
+    "python.formatting.provider": "black",
+    "python.formatting.blackPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/black",
     "python.formatting.yapfPath": "/home/ben/.programs/anaconda3/envs/neovim3/bin/yapf",
-	"python.formatting.blackArgs": ["--line-length", "120"],
-	"python.formatting.yapfArgs": ["--COLUMN_LIMIT", "120"],
-	"python.workspaceSymbols.ctagsPath": "${workspaceFolder}/.git/tags",
-	"python.workspaceSymbols.tagFilePath": "${workspaceFolder}/.git/tags",
-	"python.condaPath": "/home/ben/.programs/anaconda3/bin/conda",
-	"r.lsp.path": "/usr/local/lib/R/site-library/languageserver/R/languageserver",
-	"session.saveOnVimLeave": true,
-	"session.directory": "~/.dotfiles/vim/sessions",
-  "smartf.timeout": 3000,
-  "tsserver.enableJavascript": true,
-  "tsserver.formatOnType": true,
-	"vetur.format.defaultFormatter.css": "prettier",
-	"vetur.format.defaultFormatter.html": "prettier",
-	"vetur.format.options.tabSize": 2,
-	"vetur.format.defaultFormatterOptions": {
-		"prettier": {
-        "trailingComma": "es5",
-        "tabWidth": 4,
-        "semi": false,
-        "singleQuote": true,
-        "arrowParens": "avoid",
-        "printWidth": 120
-		}
-	},
+    "python.formatting.blackArgs": ["--line-length", "100"],
+    "python.formatting.yapfArgs": ["--COLUMN_LIMIT", "100"],
+    /* "python.workspaceSymbols.ctagsPath": "${workspaceFolder}/.git/tags", */
+    /* "python.workspaceSymbols.tagFilePath": "${workspaceFolder}/.git/tags", */
+    /* "python.condaPath": "/home/ben/.programs/anaconda3/bin/conda", */
+    "r.lsp.path": "/usr/local/lib/R/site-library/languageserver/R/languageserver",
+    "session.saveOnVimLeave": true,
+    "session.directory": "~/.dotfiles/vim/sessions",
+    "smartf.timeout": 3000,
+    "tsserver.enableJavascript": true,
+    "tsserver.formatOnType": true,
+    "tsserver.npm": "/usr/bin/npm",
+    "vetur.completion.autoImport": true,
+    "vetur.completion.useScaffoldSnippets": true,
+    "vetur.dev.vlsPath": "~/.config/yarn/global/node_modules/vue-language-server",
+    "vetur.experimental.templateInterpolationService": true,
+    "vetur.format.options.tabSize": 4,
+    "vetur.format.defaultFormatterOptions": {
+        "prettier": {
+            "trailingComma": "es5",
+            "tabWidth": 4,
+            "semi": false,
+            "singleQuote": true,
+            "arrowParens": "avoid",
+            "printWidth": 120
+        }
+    },
     "vetur.format.scriptInitialIndent": false,
-	"vetur.trace.server": "messages",
-	"vim.enableNeovim": true,
-	"vim.easymotion": true,
-	"vim.incsearch": true,
-	"vim.useSystemClipboard": true,
-	"vim.useCtrlKeys": true,
-	"vim.hlsearch": true,
-	"vim.insertModeKeyBindings": [
-		{
-			"before": ["j", "j"],
-			"after": ["<Esc>"]
-		}
-	],
-	"vim.normalModeKeyBindingsNonRecursive": [
-		{
-			"before": ["<leader>", "d"],
-			"after": ["d", "d"]
-		},
-		{
-			"before": ["<C-n>"],
-			"commands": [":nohl"]
-		}
-	],
-	"vim.leader": ",",
-	"vim.handleKeys": {
-		"<C-a>": false,
-		"<C-f>": false
-	},
-	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-	"window.zoomLevel": 0,
+    "vetur.trace.server": "messages",
+    "vim.enableNeovim": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "d"],
+            "after": ["d", "d"]
+        },
+        {
+            "before": ["<C-n>"],
+            "commands": [":nohl"]
+        }
+    ],
+    "vim.leader": ",",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "window.zoomLevel": 0,
     "workbench.colorTheme": "Material Theme",
     "workbench.iconTheme": "material-icon-theme",
-	"todo-tree.tree.showScanModeButton": false,
-	"prettier.arrowParens": "avoid",
-	"php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
-	"php-cs-fixer.lastDownload": 1603790525757,
-	"vs-kubernetes": {
-		"vs-kubernetes.helm-path.linux": "/home/ben/.vs-kubernetes/tools/helm/linux-amd64/helm",
-		"vs-kubernetes.draft-path.linux": "/home/ben/.vs-kubernetes/tools/draft/linux-amd64/draft",
-		"vs-kubernetes.kubectl-path.linux": "/home/ben/.vs-kubernetes/tools/kubectl/kubectl",
-		"vs-kubernetes.minikube-path.linux": "/home/ben/.vs-kubernetes/tools/minikube/linux-amd64/minikube"
-	},
+    "todo-tree.tree.showScanModeButton": false,
+    "prettier.arrowParens": "avoid",
+    "php-cs-fixer.executablePath": "${extensionPath}/php-cs-fixer.phar",
+    "php-cs-fixer.lastDownload": 1603790525757,
+    "vs-kubernetes": {
+        "vs-kubernetes.helm-path.linux": "/home/ben/.vs-kubernetes/tools/helm/linux-amd64/helm",
+        "vs-kubernetes.draft-path.linux": "/home/ben/.vs-kubernetes/tools/draft/linux-amd64/draft",
+        "vs-kubernetes.kubectl-path.linux": "/home/ben/.vs-kubernetes/tools/kubectl/kubectl",
+        "vs-kubernetes.minikube-path.linux": "/home/ben/.vs-kubernetes/tools/minikube/linux-amd64/minikube"
+    },
+    "yank.enableCompletion": false,
     "r.lsp.use_stdio": true,
     "languageserver": {
-    "R": {
-        "command": "/usr/bin/R",
-        "args" : [ "--slave", "-e", "languageserver::run()"],
-        "filetypes" : ["r"]
+        "R": {
+            "command": "/usr/bin/R",
+            "args": ["--slave", "-e", "languageserver::run()"],
+            "filetypes": ["r"]
         }
     }
 }
