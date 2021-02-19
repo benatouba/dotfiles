@@ -6,6 +6,8 @@ source ~/.bash_aliases
 alias upomz='omz update'
 alias vim="nvim"
 alias fd='fdfind'
+alias find='fdfind'
+alias du='dust'
 alias cat='batcat'
 alias grep='rg'
 alias kbl="setxkbmap -layout us,de -option caps:escape -option 'grp:alt_shift_toggle'"

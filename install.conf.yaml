@@ -1,4 +1,22 @@
-- clean: ['~']
+- clean:
+    ~/:
+        recursive: true
+
+- defaults:
+    link:
+        create: true
+        relink: true
+
+- shell:
+    - chsh -s $(which zsh)
+    - [chsh -s $(which zszh), Making zsh the default shell]
+    - command: read var && echo Your variable is $var
+      stdin: true
+      stdout: true
+      description: Reading and printing variable
+      quiet: true
+    - command: read fail
+      stderr: true
 
 - link:
     ~/.profile: profile
@@ -7,7 +25,9 @@
     ~/.bash_aliases: bash_aliases
     ~/.zshrc: zshrc
     ~/.zsh: zsh
-    ~/.oh-my-zsh: oh-my-zsh
+    ~/.oh-my-zsh/themes/:
+        path: zsh/themes/*
+        glob: true
     ~/.oh-my-fish: oh-my-fish
     ~/.tmux.conf: tmux.conf
 
@@ -20,7 +40,7 @@
     ~/.gitconfig: gitconfig
     ~/.gitignore: gitignore
     ~/.gitmodules: gitmodules
-    ~/.git_template/hooks/: 
+    ~/.git_template/hooks/:
         glob: true
         path: git_template/hooks/*
         create: true
@@ -35,7 +55,7 @@
     ~/.i3: i3
     ~/.Rprofile: Rprofile.R
     ~/.lintr: lintr
-    ~/.vim/sessions: 
+    ~/.vim/sessions:
         glob: true
         path: vim/sessions/*
         create: true

@@ -4,3 +4,6 @@
 [submodule "polybar-scripts"]
 	path = polybar-scripts
 	url = git@github.com:polybar/polybar-scripts.git
+[submodule "oh-my-zsh"]
+	path = oh-my-zsh
+	url = git@github.com:ohmyzsh/ohmyzsh.git

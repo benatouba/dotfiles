@@ -16,7 +16,7 @@ POWERLEVEL9K_LEGACY_ICON_SPACING=true
 source ~/.zsh/autostart.zsh
 source ~/.zsh/export.zsh
 source ~/.zsh/settings.zsh
-source ~/.zsh/function.zsh
+source ~/.zsh/functions.zsh
 source ~/.zsh/alias.zsh
 source ~/.zsh/github.zsh
 source ~/.zsh/fzf.zsh
@@ -31,9 +31,6 @@ source ~/.zsh/tokens.zsh
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/$USER/.oh-my-zsh"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -91,6 +88,7 @@ export ZSH="/home/$USER/.oh-my-zsh"
 plugins=( git tmux django ripgrep colored-man-pages frontend-search zsh-syntax-highlighting yarn vim-interaction fzf fzf-tab zsh-autosuggestions pip nvm ssh-agent )
 
 source $ZSH/oh-my-zsh.sh
+source ~/.zsh/bindings.zsh # read after omz
 
 # source ~/.zsh/forgit.zsh
 

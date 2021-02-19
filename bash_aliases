@@ -10,7 +10,6 @@ then
     alias upNeovim3Env="conda update -n neovim3 --file ~/.dotfiles/conda_neovim3.yaml"
     alias upDashboardsEnv="conda update -n dashboards --file ~/.dotfiles/conda_dashboards.yaml"
     alias upAll="up && upConda && upVim"
-    alias rambox="/home/ben/.programs/rambox/rambox-0.7.3.Appimage"
     alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
     alias watchman_reset="watchman watch-del-all && watchman shutdown-server"
     alias paraview="~/.programs/ParaView-5.8.0-MPI-Linux-Python3.7-64bit/bin/paraview"

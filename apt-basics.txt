@@ -1,0 +1,16 @@
+# Compiler
+cmake
+autoconf
+automake
+g++
+
+# Programs
+git
+curl
+unzip
+xclip # clipboard provider
+zsh
+
+# CL tools
+ripgrep
+fd-find
