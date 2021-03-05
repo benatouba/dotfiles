@@ -168,7 +168,7 @@ Plug 'mhinz/vim-startify'
 Plug 'jalvesaq/Nvim-R', {'branch': 'stable', 'for': 'Rscript'} " R Console inside neovim
 " Latex, latex, Latex
 " Plug 'donRaphaco/neotex', {'for': 'tex'}
-" Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'lervag/vimtex', {'for': 'tex'}
 " Snippets
 " Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'   " shougo's snippet collection
@@ -283,7 +283,7 @@ set completeopt+=menuone,noinsert,noselect               " autocompletion menu m
 " set completeopt+=menu,preview               " autocompletion menu mode
 set wildmode=list:longest                   " complete like shell
 
-set shell=/bin/bash                         " set shell used for commands (neomake, ..)
+set shell=/bin/zsh                         " set shell used for commands (neomake, ..)
 
 " if (has("termguicolors"))
 " set termguicolors                           " set colorspace (important for most colorschemes)
@@ -314,6 +314,7 @@ nnoremap <leader>em :e ~/.config/nvim/_machine_specific.vim<CR>
 nnoremap <leader>eg :e ~/.dotfiles/gitconfig<CR>
 nnoremap <leader>ei :e ~/.dotfiles/gitignore<CR>
 nnoremap <leader>eb :e ~/.dotfiles/bashrc<CR>
+nnoremap <leader>ez :e ~/.dotfiles/zshrc<CR>
 nnoremap <leader>ec :e ~/.dotfiles/coc-settings.json<CR>
 nnoremap <leader>ch :checkhealth<CR>
 
