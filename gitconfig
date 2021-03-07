@@ -31,7 +31,7 @@
 [diff]
 	tool = nvim
 [difftool "nvim"]
-    cmd = ~/.programs/nvim.appimage 
+    cmd = nvim
 	prompt = false
 [gitlab]
     user = schmidt
@@ -44,7 +44,7 @@
 	ctags = !.git/hooks/ctags
 # define command which will be used when "vim" is set as a merge tool
 [mergetool "nvim"]
-  cmd = ~/.programs/nvim.appimage -f -c \"Gvdiffsplit!\" \"$MERGED\"
+  cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 # set "vim" as tool for merging
 [merge]
   tool = nvim

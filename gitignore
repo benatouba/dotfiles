@@ -15,4 +15,3 @@ bk/
 **/.tmuxinator.yml
 **/.vimspector.*
 **/poetry.lock
-**/pyproject.toml

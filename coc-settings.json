@@ -53,6 +53,7 @@
     "javascript.format.enabled": true,
     "javascript.showUnused": true,
     "javascript.updateImportsOnFileMove.enable": true,
+    "texlab.path": "~/.programs/texlab",
     "latex.build.executable": "/usr/bin/pdflatex",
     "latex.build.onSave": true,
     "latex.build.outputDirectory": ".",

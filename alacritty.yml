@@ -12,8 +12,8 @@ env:
   # You can verify this by checking for the presence of `smso` and `sitm` in
   # `infocmp xterm-256color`.
   # TERM: xterm-256color
-  # TERM: alacritty
-  TERM: xterm-256color
+  TERM: alacritty
+  # TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -50,15 +50,15 @@ window:
   # - none: neither borders nor title bar
   # - transparent: title bar, transparent background and title bar buttons
   # - buttonless: title bar, transparent background, but no title bar buttons
-  decorations: full
+  decorations: none
   # Window title
   title: Alacritty
   # Window class (Linux/BSD only):
   class:
     # Application instance name
-    instance: Alacritty
+    instance: alacritty
     # General application class
-    general: Alacritty
+    general: alacritty
 
   # Startup Mode (changes require restart)
   #
