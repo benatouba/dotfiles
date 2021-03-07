@@ -14,3 +14,6 @@ zsh
 # CL tools
 ripgrep
 fd-find
+
+# server
+mailutils
